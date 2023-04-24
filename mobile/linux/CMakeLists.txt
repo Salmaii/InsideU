@@ -1,8 +1,8 @@
 cmake_minimum_required(VERSION 3.10)
 project(runner LANGUAGES CXX)
 
-set(BINARY_NAME "basearch")
-set(APPLICATION_ID "com.example.basearch")
+set(BINARY_NAME "InLaw")
+set(APPLICATION_ID "com.example.InLaw")
 
 cmake_policy(SET CMP0063 NEW)
 

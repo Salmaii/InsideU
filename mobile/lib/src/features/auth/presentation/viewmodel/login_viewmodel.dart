@@ -12,7 +12,7 @@ abstract class _LoginViewModelBase with Store {
   final _usecase = Modular.get<LoginUseCase>();
 
   @observable
-  String username = '';
+  String email = '';
 
   @observable
   String password = '';
@@ -21,25 +21,26 @@ abstract class _LoginViewModelBase with Store {
   bool isLoading = false;
 
   @action
-  void validateUsername() {
-    error.username = _usecase.validateUsername(username);
+  void validateEmail() {
+    error.email = _usecase.validateEmail(email);
   }
 
   @action
   void validatePassword() {
-    error.password = _usecase.validatePassword(password);
+    error.password = _usecase.validatePassword(password, email);
   }
 
   void login() async {
     error.clear();
 
-    validateUsername();
+    validateEmail();
     validatePassword();
 
     if (!error.hasErrors) {
       isLoading = true;
       try {
-        await _usecase.login(username, password);
+        await _usecase.login(email, password);
+        //page to
       } on UnimplementedError {
         // TODO: Fix!!!
         error.login = 'Função não implementada!';
@@ -54,7 +55,7 @@ class LoginError = _LoginErrorBase with _$LoginError;
 
 abstract class _LoginErrorBase with Store {
   @observable
-  String? username;
+  String? email;
 
   @observable
   String? password;
@@ -63,10 +64,10 @@ abstract class _LoginErrorBase with Store {
   String? login;
 
   @computed
-  bool get hasErrors => username != null || password != null || login != null;
+  bool get hasErrors => email != null || password != null || login != null;
 
   void clear() {
-    username = null;
+    email = null;
     password = null;
     login = null;
   }

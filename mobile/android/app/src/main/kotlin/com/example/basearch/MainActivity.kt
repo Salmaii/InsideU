@@ -1,4 +1,4 @@
-package com.example.basearch
+package com.example.InLaw
 
 import io.flutter.embedding.android.FlutterActivity
 

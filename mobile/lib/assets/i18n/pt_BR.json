@@ -1,14 +1,38 @@
 {
-    "app_name" : "Aplicativo de Exemplo",
+    "app_name" : "InLaw",
     
-    "username" : "Usuário",
-    "username_hint" : "Informe o nome do seu usuário",
+    "Onboard_text1" : "Precisa de ajuda jurídica?\n Encontre um advogado. Em seus termos.",
+    "Onboard_text2" : "Advogado qualificado?\n Encontre novos clientes que precisam de ajuda jurídica.",
+    "Onboard_text3" : "Negócio Fechado.",
+
+    "Skip" : "Pular",
+    "Next" : "Proximo",
+    "Get Started" : "Iniciar",
+    "Back": "Voltar",
+    "divider_text" : "ou",
+    
+    "name": "Nome",
+    "name_hint": "Digite seu nome",
+    "email" : "Email",
+    "email_hint" : "Informe o endereço de email",
     "password" : "Senha",
     "password_hint" : "Informe a sua senha",
+
     "login" : "Login",
-    "forgot_password" : "Esqueci a senha!",
-    "username_required" : "O usuário é obrigatório",
-    "password_required" : "A senha é obrigatória",
-    "divider_text" : "ou",
-    "signup" : "Cadastrar"
+    "signup" : "Cadastrar",
+    "already_have_an_account": "Já tem uma conta?",
+    "forgot_password" : "Esqueci a senha",
+    "send_email": "Mandar Email",
+
+    "name_required" : "O nome é obrigatório",
+
+    "email_required" : "O email é obrigatório",
+    "email_invalid_format" : "Endereço de email inválido",
+
+    "password_required" : "A senha é obrigatória",    
+    "password_invalid_lenght" : "A senha precisa de no mínimo 8 caracteres",
+    "password_invalid_special" : "A senha precisa ter no mínimo um caracter especial",
+    "password_invalid_number" : "A senha precisa ter no mínimo um número",
+    "password_invalid_lower_case" : "A senha precisa ter no mínimo uma letra maiúscula",
+    "password_invalid_upper_case" : "A senha precisa ter no mínimo uma letra minúscula"
 }

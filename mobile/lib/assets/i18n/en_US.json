@@ -1,14 +1,38 @@
 {
-    "app_name" : "Example App",
+    "app_name" : "InLaw",
 
-    "username" : "User",
-    "username_hint": "Type your username",
+    "Onboard_text1" : "Need legal help?\n Find a lawyer. On your terms.",
+    "Onboard_text2" : "Qualified lawyer?\n Find new clients needing legal help.",
+    "Onboard_text3" : "Deal.",
+
+    "Skip" : "Skip",
+    "Next" : "Next",
+    "Get Started" : "Get Started",
+    "Back": "Back",
+    "divider_text" : "or",
+
+    "name": "Name",
+    "name_hint": "Type your name",
+    "email" : "Email",
+    "email_hint": "Type your email",
     "password": "Password",
     "password_hint": "Type your password",
+
     "login" : "Login",
-    "forgot_password" : "Forgot password!",
-    "username_required" : "Username is required!",
+    "signup" : "Sign Up",
+    "already_have_an_account": "Already have an account?",
+    "forgot_password" : "Forgot password",
+    "send_email": "Send Email",
+
+    "name_required" : "Name is required!",
+
+    "email_required" : "Email is required!",
+    "email_invalid_format" : "Please enter a valid email address",
+
     "password_required" : "Password is required!",
-    "divider_text" : "or",
-    "signup" : "Sign Up"
+    "password_invalid_lenght" : "Password must have least 8 characters",
+    "password_invalid_special" : "Password must have a special character",
+    "password_invalid_number" : "Password must have a number",
+    "password_invalid_lower_case" : "Password must have an uppercase letter",
+    "password_invalid_upper_case" : "Password must have a lowercase letter"
 }

@@ -43,7 +43,7 @@ extension CoreFormTextField on Widget {
         children: [
           Padding(
             padding: const EdgeInsets.only(left: 5),
-            child: Text(title, style: theme.textTheme.headline5),
+            child: Text(title, style: theme.textTheme.headlineSmall),
           ),
           const SizedBox(height: 10),
           TextFormField(
