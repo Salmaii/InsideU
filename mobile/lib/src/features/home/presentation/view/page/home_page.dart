@@ -4,7 +4,13 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:localization/localization.dart';
 import 'package:InLaw/src/theme.dart';
+
+import 'package:InLaw/src/features/profile/presentation/view/page/profile_page.dart';
+import 'package:InLaw/src/features/notifications/presentation/view/page/notifications_page.dart';
+import 'package:InLaw/src/features/search/presentation/view/page/search_page.dart';
+
 import '../../viewmodel/home_viewmodel.dart';
+import 'home_page_contents.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -14,117 +20,57 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends ModularState<HomePage, HomeViewModel> {
-  late ThemeData _theme;
+  int _currentPageIndex = 0;
 
-  Widget get _pageName => Container(
-        width: double.infinity,
-        height: 60,
-        child: Text(
-          'Home'.i18n(),
-          style: kTitleBlack,
-          textAlign: TextAlign.center,
-        ),
-      );
-
-  Widget _categoryBlock(
-      BuildContext context, String categoryName, String imagePath) {
-    return Container(
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(10),
-      ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Image.asset(
-            imagePath,
-            height: 100,
-            width: 100,
-            fit: BoxFit.fitWidth,
-          ),
-          SizedBox(height: 10),
-          TextButton(
-            style: TextButton.styleFrom(
-              splashFactory: NoSplash.splashFactory,
-              padding: const EdgeInsets.all(0),
-              textStyle: TextStyle(fontSize: 18),
-            ),
-            onPressed: () {
-              Navigator.pushNamed(context, '/home/$categoryName');
-            },
-            child: Text(
-              categoryName,
-              style: TextStyle(color: Colors.black),
-            ),
-          ),
-        ],
-      ),
-    );
+  void _onItemTapped(int index) {
+    setState(() {
+      _currentPageIndex = index;
+    });
   }
 
-  Widget get _categoryContainer => GridView.count(
-        // TODO Fix GridView
-        primary: false,
-        padding: const EdgeInsets.all(20),
-        crossAxisSpacing: 10,
-        mainAxisSpacing: 10,
-        crossAxisCount: 2,
-        children: <Widget>[
-          _categoryBlock(
-              context, 'Criminal', 'lib/assets/images/splashScreen.png'),
-          _categoryBlock(
-              context, 'Civil', 'lib/assets/images/splashScreen.png'),
-          _categoryBlock(
-              context, 'Constitutional', 'lib/assets/images/splashScreen.png'),
-          _categoryBlock(
-              context, 'Labor', 'lib/assets/images/splashScreen.png'),
-          _categoryBlock(
-              context, 'Business', 'lib/assets/images/splashScreen.png'),
-          _categoryBlock(
-              context, 'Environmental', 'lib/assets/images/splashScreen.png'),
-          _categoryBlock(context, 'Intellectual Property',
-              'lib/assets/images/splashScreen.png'),
-          _categoryBlock(
-              context, 'Family', 'lib/assets/images/splashScreen.png'),
-          _categoryBlock(
-              context, 'International', 'lib/assets/images/splashScreen.png'),
-          _categoryBlock(context, 'Tax', 'lib/assets/images/splashScreen.png'),
-          _categoryBlock(
-              context, 'Real Estate', 'lib/assets/images/splashScreen.png'),
-          _categoryBlock(context, 'Information Technology',
-              'lib/assets/images/splashScreen.png'),
-        ],
-      );
-
-  Widget get _formBuild => Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.center,
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          const SizedBox(height: 5),
-          _pageName,
-          _categoryContainer,
-        ],
-      );
+  Widget _getPage(int index) {
+    switch (index) {
+      case 0:
+        return const HomePageContents();
+      case 1:
+        return SearchPage();
+      case 2:
+        return ProfilePage();
+      case 3:
+        return NotificationPage();
+      default:
+        return HomePageContents();
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
-    _theme = Theme.of(context);
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: getTheme(),
-      home: Scaffold(
-        appBar: AppBar(centerTitle: true, title: const Text('InLaw')),
-        body: Container(
-          height: MediaQuery.of(context).size.height * 0.88,
-          decoration: const BoxDecoration(
-              color: Color.fromARGB(255, 242, 242, 242),
-              borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(40),
-                topRight: Radius.circular(40),
-              )),
-          child: _categoryContainer,
-        ),
+    return Scaffold(
+      appBar: AppBar(centerTitle: true, title: const Text('InLaw')),
+      body: _getPage(_currentPageIndex),
+      bottomNavigationBar: BottomNavigationBar(
+        unselectedItemColor: Colors.black38,
+        fixedColor: Colors.blueGrey,
+        items: const [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: 'Home',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.search),
+            label: 'Search',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.notifications),
+            label: 'Notifications',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.person),
+            label: 'Profile',
+          ),
+        ],
+        currentIndex: _currentPageIndex,
+        onTap: _onItemTapped,
       ),
     );
   }

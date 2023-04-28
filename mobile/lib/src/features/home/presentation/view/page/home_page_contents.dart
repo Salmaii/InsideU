@@ -11,38 +11,16 @@ import 'package:InLaw/src/features/search/presentation/view/page/search_page.dar
 
 import '../../viewmodel/home_viewmodel.dart';
 
-class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
+class HomePageContents extends StatefulWidget {
+  const HomePageContents({Key? key}) : super(key: key);
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  State<HomePageContents> createState() => _HomePageContentsState();
 }
 
-class _HomePageState extends ModularState<HomePage, HomeViewModel> {
+class _HomePageContentsState
+    extends ModularState<HomePageContents, HomeViewModel> {
   late ThemeData _theme;
-
-  int _currentPageIndex = 0;
-
-  void _onItemTapped(int index) {
-    setState(() {
-      _currentPageIndex = index;
-    });
-  }
-
-  Widget _getPage(int index) {
-    switch (index) {
-      case 0:
-        return HomePage();
-      case 1:
-        return SearchPage();
-      case 2:
-        return ProfilePage();
-      case 3:
-        return NotificationPage();
-      default:
-        return HomePage();
-    }
-  }
 
   Widget get _pageName => Container(
         width: double.infinity,
@@ -141,40 +119,16 @@ class _HomePageState extends ModularState<HomePage, HomeViewModel> {
       debugShowCheckedModeBanner: false,
       theme: getTheme(),
       home: Scaffold(
-        appBar: AppBar(centerTitle: true, title: const Text('InLaw')),
+        // appBar: AppBar(centerTitle: true, title: const Text('InLaw')),
         body: Container(
           height: MediaQuery.of(context).size.height * 0.88,
           decoration: const BoxDecoration(
               color: Color.fromARGB(255, 242, 242, 242),
               borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(40),
-                topRight: Radius.circular(40),
-              )),
+                  // topLeft: Radius.circular(40),
+                  // topRight: Radius.circular(40),
+                  )),
           child: _categoryContainer,
-        ),
-        bottomNavigationBar: BottomNavigationBar(
-          unselectedItemColor: Colors.black38,
-          fixedColor: Colors.blueGrey,
-          items: const [
-            BottomNavigationBarItem(
-              icon: Icon(Icons.home),
-              label: 'Home',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.search),
-              label: 'Search',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.notifications),
-              label: 'Notifications',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.person),
-              label: 'Profile',
-            ),
-          ],
-          currentIndex: _currentPageIndex,
-          onTap: _onItemTapped,
         ),
       ),
     );
