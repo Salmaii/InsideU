@@ -14,17 +14,17 @@ class _SearchPageState extends State<SearchPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Search'),
-        actions: [
-          IconButton(
-            icon: Icon(Icons.edit),
-            onPressed: () {
-              // Adicione aqui a lógica para permitir ao usuário editar seu perfil.
-            },
-          ),
-        ],
-      ),
+      // appBar: AppBar(
+      //   title: Text('Search'),
+      //   actions: [
+      //     IconButton(
+      //       icon: Icon(Icons.edit),
+      //       onPressed: () {
+      //         // Adicione aqui a lógica para permitir ao usuário editar seu perfil.
+      //       },
+      //     ),
+      //   ],
+      // ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [

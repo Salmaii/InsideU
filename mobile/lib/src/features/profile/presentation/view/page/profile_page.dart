@@ -14,17 +14,17 @@ class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Profile'),
-        actions: [
-          IconButton(
-            icon: Icon(Icons.edit),
-            onPressed: () {
-              // Adicione aqui a lógica para permitir ao usuário editar seu perfil.
-            },
-          ),
-        ],
-      ),
+      // appBar: AppBar(
+      //   title: Text('Profile'),
+      //   actions: [
+      //     IconButton(
+      //       icon: Icon(Icons.edit),
+      //       onPressed: () {
+      //         // Adicione aqui a lógica para permitir ao usuário editar seu perfil.
+      //       },
+      //     ),
+      //   ],
+      // ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
