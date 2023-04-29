@@ -35,21 +35,21 @@ class _HomePageState extends ModularState<HomePage, HomeViewModel> {
       case 1:
         return SearchPage();
       case 2:
-        return ProfilePage();
-      case 3:
         return NotificationPage();
+      case 3:
+        return ProfilePage();
       default:
-        return HomePageContents();
+        return const HomePageContents();
     }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-          centerTitle: true,
-          title: const Text('InLaw'),
-          backgroundColor: Color(0xFF011C2E)),
+      // appBar: AppBar(
+      //     centerTitle: true,
+      //     title: const Text('InLaw'),
+      //     backgroundColor: Color(0xFF011C2E)),
       body: _getPage(_currentPageIndex),
       bottomNavigationBar: BottomNavigationBar(
         unselectedItemColor: Colors.black38,

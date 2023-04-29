@@ -1,9 +1,4 @@
-import 'package:InLaw/src/app_styles.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:flutter_modular/flutter_modular.dart';
-import 'package:localization/localization.dart';
-import 'package:InLaw/src/theme.dart';
 
 class NotificationPage extends StatefulWidget {
   @override
@@ -11,42 +6,97 @@ class NotificationPage extends StatefulWidget {
 }
 
 class _NotificationPageState extends State<NotificationPage> {
+  bool _showSearchBar = false;
+  List<String> notifications = [
+    'Notificação 1',
+    'Notificação 2',
+    'Notificação 3',
+  ];
+  TextEditingController _searchController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      // appBar: AppBar(
-      //   title: Text('Notifications'),
-      //   actions: [
-      //     IconButton(
-      //       icon: Icon(Icons.edit),
-      //       onPressed: () {
-      //         // Adicione aqui a lógica para permitir ao usuário editar seu perfil.
-      //       },
-      //     ),
-      //   ],
-      // ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          CircleAvatar(
-            radius: 75,
-            backgroundColor: Colors.amberAccent,
-            // backgroundImage: AssetImage('lib/assets/images/logoImage.png'),
-          ),
-          SizedBox(height: 16),
-          Text(
-            'Nome do usuário',
-            style: TextStyle(
-              fontSize: 24,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          SizedBox(height: 8),
-          Text(
-            'Outras informações relevantes do perfil',
-            style: TextStyle(fontSize: 16),
-          ),
-        ],
+    return MaterialApp(
+      title: 'InLaw',
+      home: Scaffold(
+        appBar: AppBar(
+          backgroundColor: _showSearchBar ? Colors.white : Color(0xFF011C2E),
+          title: _showSearchBar
+              ? Container(
+                  height: kToolbarHeight,
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(30),
+                  ),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: TextField(
+                          controller: _searchController,
+                          decoration: InputDecoration(
+                            hintText: 'Pesquisar',
+                            border: InputBorder.none,
+                            contentPadding:
+                                const EdgeInsets.symmetric(horizontal: 16),
+                          ),
+                          onChanged: (value) {
+                            // Implemente aqui a lógica de pesquisa
+                          },
+                        ),
+                      ),
+                      if (_showSearchBar)
+                        IconButton(
+                          icon: Icon(Icons.close),
+                          color: Colors.black,
+                          onPressed: () {
+                            setState(() {
+                              _showSearchBar = false;
+                              _searchController.clear();
+                            });
+                          },
+                        ),
+                    ],
+                  ),
+                )
+              : Text('Notifications'),
+          actions: [
+            if (!_showSearchBar)
+              IconButton(
+                icon: Icon(Icons.filter_alt),
+                onPressed: () {
+                  setState(() {
+                    _showSearchBar = !_showSearchBar;
+                  });
+                },
+              ),
+            SizedBox(width: 16),
+          ],
+        ),
+        body: ListView.builder(
+          itemCount: notifications.length,
+          itemBuilder: (context, index) {
+            return ListTile(
+              title: Text(notifications[index]),
+              onTap: () {
+                _showCustomNotification(context, notifications[index]);
+              },
+            );
+          },
+        ),
+      ),
+    );
+  }
+
+  void _showCustomNotification(BuildContext context, String text) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(text),
+        action: SnackBarAction(
+          label: 'Fechar',
+          onPressed: () {
+            ScaffoldMessenger.of(context).hideCurrentSnackBar();
+          },
+        ),
       ),
     );
   }

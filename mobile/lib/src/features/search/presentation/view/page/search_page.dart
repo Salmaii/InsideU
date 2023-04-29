@@ -1,9 +1,4 @@
-import 'package:InLaw/src/app_styles.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:flutter_modular/flutter_modular.dart';
-import 'package:localization/localization.dart';
-import 'package:InLaw/src/theme.dart';
 
 class SearchPage extends StatefulWidget {
   @override
@@ -11,40 +6,70 @@ class SearchPage extends StatefulWidget {
 }
 
 class _SearchPageState extends State<SearchPage> {
+  bool _showSearchBar = false;
+  List<String> searchResults = [];
+  TextEditingController _searchController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: AppBar(
-      //   title: Text('Search'),
-      //   actions: [
-      //     IconButton(
-      //       icon: Icon(Icons.edit),
-      //       onPressed: () {
-      //         // Adicione aqui a lógica para permitir ao usuário editar seu perfil.
-      //       },
-      //     ),
-      //   ],
-      // ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          CircleAvatar(
-            radius: 75,
-            backgroundColor: Colors.amberAccent,
-            // backgroundImage: AssetImage('assets/images/logo.png'),
-          ),
-          SizedBox(height: 16),
-          Text(
-            'Nome do usuário',
-            style: TextStyle(
-              fontSize: 24,
-              fontWeight: FontWeight.bold,
+      appBar: AppBar(
+        // remover o botao de voltar
+        // e fazer com que o tittle da app bar fique na esquerda
+        // e os icones de filtro e fechar na direita
+        backgroundColor: _showSearchBar ? Colors.white : Color(0xFF011C2E),
+        title: !_showSearchBar
+            ? Text('Search')
+            : TextField(
+                controller: _searchController,
+                decoration: InputDecoration(
+                  hintText: 'Pesquisar',
+                  border: InputBorder.none,
+                ),
+                onChanged: (value) {
+                  // Implemente aqui a lógica de pesquisa
+                },
+              ),
+        centerTitle: true,
+        actions: [
+          if (_showSearchBar)
+            IconButton(
+              icon: Icon(Icons.close),
+              color: Colors.black,
+              onPressed: () {
+                setState(() {
+                  _showSearchBar = false;
+                  _searchController.clear();
+                });
+              },
             ),
-          ),
-          SizedBox(height: 8),
-          Text(
-            'Outras informações relevantes do perfil',
-            style: TextStyle(fontSize: 16),
+          if (!_showSearchBar)
+            IconButton(
+              icon: Icon(Icons.filter_alt),
+              onPressed: () {
+                setState(() {
+                  _showSearchBar = !_showSearchBar;
+                });
+              },
+            ),
+        ],
+      ),
+      body: Column(
+        children: [
+          SizedBox(height: 16),
+          Expanded(
+            child: ListView.builder(
+              itemCount: searchResults.length,
+              itemBuilder: (context, index) {
+                return ListTile(
+                  title: Text(searchResults[index]),
+                  onTap: () {
+                    // Aqui você pode implementar a lógica para
+                    // exibir mais detalhes do resultado da pesquisa
+                  },
+                );
+              },
+            ),
           ),
         ],
       ),
