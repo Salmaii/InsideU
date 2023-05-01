@@ -1,13 +1,8 @@
 import 'package:InLaw/src/app_styles.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:localization/localization.dart';
 import 'package:InLaw/src/theme.dart';
-
-import 'package:InLaw/src/features/profile/presentation/view/page/profile_page.dart';
-import 'package:InLaw/src/features/notifications/presentation/view/page/notifications_page.dart';
-import 'package:InLaw/src/features/search/presentation/view/page/search_page.dart';
 
 import '../../viewmodel/home_viewmodel.dart';
 
