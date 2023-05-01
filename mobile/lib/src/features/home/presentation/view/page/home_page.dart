@@ -46,10 +46,6 @@ class _HomePageState extends ModularState<HomePage, HomeViewModel> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: AppBar(
-      //     centerTitle: true,
-      //     title: const Text('InLaw'),
-      //     backgroundColor: Color(0xFF011C2E)),
       body: _getPage(_currentPageIndex),
       bottomNavigationBar: BottomNavigationBar(
         unselectedItemColor: Colors.black38,

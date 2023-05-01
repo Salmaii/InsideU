@@ -123,11 +123,8 @@ class _HomePageContentsState
         body: Container(
           height: MediaQuery.of(context).size.height * 0.88,
           decoration: const BoxDecoration(
-              color: Color.fromARGB(255, 242, 242, 242),
-              borderRadius: BorderRadius.only(
-                  // topLeft: Radius.circular(40),
-                  // topRight: Radius.circular(40),
-                  )),
+            color: Color.fromARGB(255, 242, 242, 242),
+          ),
           child: _categoryContainer,
         ),
       ),

@@ -14,12 +14,15 @@ class _SearchPageState extends State<SearchPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        // remover o botao de voltar
-        // e fazer com que o tittle da app bar fique na esquerda
-        // e os icones de filtro e fechar na direita
         backgroundColor: _showSearchBar ? Colors.white : Color(0xFF011C2E),
         title: !_showSearchBar
-            ? Text('Search')
+            ? Text(
+                'Search',
+                style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                ),
+              )
             : TextField(
                 controller: _searchController,
                 decoration: InputDecoration(
@@ -27,10 +30,16 @@ class _SearchPageState extends State<SearchPage> {
                   border: InputBorder.none,
                 ),
                 onChanged: (value) {
-                  // Implemente aqui a lógica de pesquisa
+                  // TODO Implementar aqui a lógica de pesquisa
                 },
+                style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black,
+                ),
               ),
-        centerTitle: true,
+        leading: Container(),
+        centerTitle: false,
         actions: [
           if (_showSearchBar)
             IconButton(
@@ -45,7 +54,7 @@ class _SearchPageState extends State<SearchPage> {
             ),
           if (!_showSearchBar)
             IconButton(
-              icon: Icon(Icons.filter_alt),
+              icon: Icon(Icons.search),
               onPressed: () {
                 setState(() {
                   _showSearchBar = !_showSearchBar;
@@ -64,8 +73,7 @@ class _SearchPageState extends State<SearchPage> {
                 return ListTile(
                   title: Text(searchResults[index]),
                   onTap: () {
-                    // Aqui você pode implementar a lógica para
-                    // exibir mais detalhes do resultado da pesquisa
+                    // TODO implementar a lógica para exibir mais detalhes do resultado da pesquisa
                   },
                 );
               },

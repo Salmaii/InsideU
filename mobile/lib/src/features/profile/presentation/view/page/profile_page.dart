@@ -16,14 +16,12 @@ class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       home: Scaffold(
         key: _scaffoldKey,
         appBar: AppBar(
-          // fazer com que o tittle da app bar fique na esquerda e seja o username
-          // e os icones de filtro e fechar na direita
-          title: Text('InLaw'),
-          centerTitle: true,
           backgroundColor: Color(0xFF011C2E),
+          centerTitle: false,
           actions: [
             IconButton(
               icon: Icon(Icons.menu),
@@ -32,32 +30,45 @@ class _ProfilePageState extends State<ProfilePage> {
               },
             ),
           ],
+          title: Align(
+            alignment: Alignment.centerLeft,
+            child: Text('username'),
+          ),
         ),
         endDrawer: Drawer(
-          child: ListView(
-            padding: EdgeInsets.zero,
+          child: Column(
             children: [
-              DrawerHeader(
-                decoration: BoxDecoration(
-                  color: Color(0xFF011C2E),
-                ),
-                child: Text(
-                  'Menu',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 24,
-                  ),
+              Expanded(
+                child: ListView(
+                  padding: EdgeInsets.zero,
+                  children: [
+                    DrawerHeader(
+                      decoration: BoxDecoration(
+                        color: Color(0xFF011C2E),
+                      ),
+                      child: Text(
+                        'Menu',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 24,
+                        ),
+                      ),
+                    ),
+                    ListTile(
+                      title: Text('Opção 1'),
+                      onTap: () {},
+                    ),
+                    ListTile(
+                      title: Text('Opção 2'),
+                      onTap: () {},
+                    ),
+                  ],
                 ),
               ),
               ListTile(
-                title: Text('Opção 1'),
+                title: Text('Logout', style: TextStyle(color: Colors.red)),
                 onTap: () {
-                  Navigator.pop(context);
-                },
-              ),
-              ListTile(
-                title: Text('Opção 2'),
-                onTap: () {
+                  // TODO implementar a logica de logout
                   Navigator.pop(context);
                 },
               ),

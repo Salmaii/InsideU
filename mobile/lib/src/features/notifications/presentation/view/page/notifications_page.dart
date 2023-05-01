@@ -11,12 +11,16 @@ class _NotificationPageState extends State<NotificationPage> {
     'Notificação 1',
     'Notificação 2',
     'Notificação 3',
+    'Notificação 4',
+    'Notificação 5',
+    'Notificação 6',
   ];
   TextEditingController _searchController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'InLaw',
       home: Scaffold(
         appBar: AppBar(
@@ -40,7 +44,7 @@ class _NotificationPageState extends State<NotificationPage> {
                                 const EdgeInsets.symmetric(horizontal: 16),
                           ),
                           onChanged: (value) {
-                            // Implemente aqui a lógica de pesquisa
+                            // TODO Implementar logica da pesquisa
                           },
                         ),
                       ),
