@@ -77,6 +77,8 @@ class _LoginPageState extends ModularState<LoginPage, LoginViewModel> {
                   //Correct Function!
 
                   // NO Validating just for testing! //TODO Validate User
+                  // TODO Do not restore login page after login
+                  // Navigator.pushReplacementNamed(context, "/home/");
                   Modular.to.pushNamed('/home/');
                 },
           child: Text('login'.i18n()),
