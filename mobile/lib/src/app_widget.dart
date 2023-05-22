@@ -12,7 +12,7 @@ class AppWidget extends StatelessWidget {
     LocalJsonLocalization.delegate.directories = ['lib/assets/i18n'];
 
     return MaterialApp.router(
-       debugShowCheckedModeBanner: false,
+      debugShowCheckedModeBanner: false,
       scrollBehavior: AppScrollBehavior(),
       title: 'app_name'.i18n(),
       localizationsDelegates: [

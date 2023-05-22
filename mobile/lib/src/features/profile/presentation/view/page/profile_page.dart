@@ -1,9 +1,5 @@
-import 'package:InLaw/src/app_styles.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:flutter_modular/flutter_modular.dart';
-import 'package:localization/localization.dart';
 import 'package:InLaw/src/theme.dart';
+import 'package:flutter/material.dart';
 
 class ProfilePage extends StatefulWidget {
   @override
@@ -17,6 +13,7 @@ class _ProfilePageState extends State<ProfilePage> {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
+      theme: getTheme(),
       home: Scaffold(
         key: _scaffoldKey,
         appBar: AppBar(

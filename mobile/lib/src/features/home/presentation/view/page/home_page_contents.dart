@@ -1,9 +1,7 @@
-import 'package:InLaw/src/app_styles.dart';
+import 'package:InLaw/src/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:localization/localization.dart';
-import 'package:InLaw/src/theme.dart';
-
 import '../../viewmodel/home_viewmodel.dart';
 
 class HomePageContents extends StatefulWidget {

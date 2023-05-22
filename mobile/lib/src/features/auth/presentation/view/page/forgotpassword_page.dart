@@ -1,11 +1,10 @@
-import 'package:InLaw/src/app_styles.dart';
+import 'package:InLaw/src/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:localization/localization.dart';
 import '../../viewmodel/login_viewmodel.dart';
 import 'package:InLaw/src/common/form_text_field.dart';
-import 'package:InLaw/src/theme.dart';
 
 class ForgotPasswordPage extends StatefulWidget {
   const ForgotPasswordPage({Key? key}) : super(key: key);

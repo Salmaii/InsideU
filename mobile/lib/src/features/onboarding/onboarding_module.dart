@@ -8,7 +8,7 @@ class OnBoardingModule extends Module {
 
   @override
   List<ModularRoute> get routes => [
-        ChildRoute('/', child: (_, __) => const OnboardingPage()),
+        ChildRoute('/', child: (_, __) => OnboardingPage()),
         ModuleRoute('/login/', module: AuthModule()),
       ];
 }

@@ -1,20 +1,37 @@
-import 'package:InLaw/src/app_styles.dart';
-import 'package:InLaw/src/features/auth/domain/model/onboard_data.dart';
-import 'package:InLaw/src/size_configs.dart';
+import 'package:InLaw/src/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:localization/localization.dart';
-import 'package:lottie/lottie.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
+import 'package:lottie/lottie.dart';
 
 class OnboardingPage extends StatefulWidget {
-  const OnboardingPage({Key? key}) : super(key: key);
-
   @override
-  State<OnboardingPage> createState() => _OnboardingPageState();
+  _OnboardingPageState createState() => _OnboardingPageState();
 }
 
 class _OnboardingPageState extends State<OnboardingPage> {
+  final PageController _pageController = PageController();
+  int _currentPage = 0;
+
+  List<Map<String, dynamic>> onboardingData = [
+    {
+      'text': 'Onboard_text1'.i18n(),
+      'image': 'assets/images/onboarding_page_1.png',
+      'animation': 'lib/assets/images/legal_statement.json',
+    },
+    {
+      'text': 'Onboard_text2'.i18n(),
+      'image': 'assets/images/onboarding_page_2.png',
+      'animation': 'lib/assets/images/legal_statement.json',
+    },
+    {
+      'text': 'Onboard_text3'.i18n(),
+      'image': 'assets/images/onboarding_page_3.png',
+      'animation': 'lib/assets/images/legal_statement.json',
+    },
+  ];
+
   @override
   void initState() {
     super.initState();
@@ -25,181 +42,133 @@ class _OnboardingPageState extends State<OnboardingPage> {
     FlutterNativeSplash.remove();
   }
 
-  int currentPage = 0;
-
-  PageController _pageController = PageController();
-
-  AnimatedContainer dotIndicator(index) {
-    return AnimatedContainer(
-      margin: const EdgeInsets.only(right: 5),
-      duration: const Duration(milliseconds: 400),
-      height: 12,
-      width: 12,
-      decoration: BoxDecoration(
-        color: currentPage == index ? kPrimaryColor : kSecondaryColor,
-        shape: BoxShape.circle,
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
-    SizeConfig().init(context);
-    double sizeH = SizeConfig.blockSizeH!;
-    double sizeV = SizeConfig.blockSizeV!;
-    return Scaffold(
-      backgroundColor: const Color(0xFF011C2E),
-      body: SafeArea(
-        child: Column(
-          children: [
-            Expanded(
-              flex: 9,
-              child: PageView.builder(
-                controller: _pageController,
-                onPageChanged: (value) {
-                  setState(() {
-                    currentPage = value;
-                  });
-                },
-                itemCount: 3,
-                itemBuilder: (context, index) => Column(
-                  children: [
-                    SizedBox(
-                      height: sizeV * 6, //5
-                    ),
-                    Container(
-                        height: sizeV * 8,
-                        child: Image.asset(
-                          onboardingContents[index].image,
-                        )),
-                    SizedBox(height: sizeV * 6 //5
-                        ),
-                    Container(
-                      height: sizeV * 40, //40
-                      child: Lottie.asset(
-                          "lib/assets/images/legal_statement.json"),
-                    ),
-                    SizedBox(
-                      height: sizeV * 6, //5
-                    ),
-                    Text(
-                      onboardingContents[index].title.i18n(),
-                      style: kBodyText1,
-                      textAlign: TextAlign.center,
-                    ),
-                    SizedBox(
-                      height: sizeV * 6, //5
-                    ),
-                    _OnboardingTaskB,
-                  ],
+    return MaterialApp(
+      theme: getTheme(),
+      home: Scaffold(
+        body: SafeArea(
+          child: Column(
+            children: [
+              Expanded(
+                child: PageView.builder(
+                  controller: _pageController,
+                  itemCount: onboardingData.length,
+                  onPageChanged: (int page) {
+                    setState(() {
+                      _currentPage = page;
+                    });
+                  },
+                  itemBuilder: (context, index) {
+                    return buildOnboardingPage(index);
+                  },
                 ),
               ),
-            ),
-          ],
+              SizedBox(height: 32.0), // Aumentando o espaçamento
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: buildPageIndicator(),
+              ),
+              SizedBox(height: 32.0), // Aumentando o espaçamento
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  if (_currentPage != 0)
+                    ElevatedButton(
+                      onPressed: () {
+                        _pageController.previousPage(
+                          duration: Duration(milliseconds: 500),
+                          curve: Curves.ease,
+                        );
+                      },
+                      child: Text('Back'.i18n(),
+                          style: TextStyle(
+                              fontSize:
+                                  18.0)), // Aumentando o tamanho do texto do botão
+                    ),
+                  if (_currentPage != onboardingData.length - 1)
+                    ElevatedButton(
+                      onPressed: () {
+                        _pageController.nextPage(
+                          duration: Duration(milliseconds: 500),
+                          curve: Curves.ease,
+                        );
+                      },
+                      child: Text('Next'.i18n(),
+                          style: TextStyle(
+                              fontSize:
+                                  18.0)), // Aumentando o tamanho do texto do botão
+                    ),
+                  if (_currentPage == onboardingData.length - 1)
+                    ElevatedButton(
+                      onPressed: () {
+                        Modular.to.pushReplacementNamed('/login/');
+                      },
+                      child: Text('Login'.i18n(),
+                          style: TextStyle(
+                              fontSize:
+                                  18.0)), // Aumentando o tamanho do texto do botão
+                    ),
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );
   }
 
-  Widget get _OnboardingTaskB => Expanded(
-        flex: 1,
-        child: Column(
-          children: [
-            currentPage == onboardingContents.length - 1
-                ? MyTextButton(
-                    buttonName: 'Get Started'.i18n(),
-                    onpressed: () {
-                      Navigator.pop(context);
-                      Modular.to.pushNamed('/login/');
-                    },
-                    btColor: kPrimaryColor,
-                  )
-                : Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      OnboardingButton(
-                        name: 'Skip'.i18n(),
-                        onPressed: () {
-                          //Navigator.pop(context);
-                          // Modular.to.pushNamed('/login/');
-                          Modular.to.pushReplacementNamed('/login/');
-                        },
-                      ),
-                      Row(
-                        children: List.generate(onboardingContents.length,
-                            (index) => dotIndicator(index)),
-                      ),
-                      OnboardingButton(
-                        name: 'Next'.i18n(),
-                        onPressed: () {
-                          _pageController.nextPage(
-                            duration: Duration(milliseconds: 400),
-                            curve: Curves.easeInOut,
-                          );
-                        },
-                      ),
-                    ],
-                  ),
-          ],
+  Widget buildOnboardingPage(int index) {
+    return Padding(
+      padding: EdgeInsets.all(16.0),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Image.asset(
+            'lib/assets/images/nameLogoNoBackground.png', // Substitua pelo caminho correto da logo do seu aplicativo
+            width: 150, // Ajuste o tamanho da logo conforme necessário
+            height: 150, // Ajuste o tamanho da logo conforme necessário
+          ),
+          SizedBox(height: 32.0), // Espaçamento entre a logo e a animação
+          Expanded(
+            child: Container(
+              alignment: Alignment.center,
+              child: Lottie.asset(
+                onboardingData[index]['animation'],
+                width: 300, // Aumentando o tamanho da animação
+                height: 300, // Aumentando o tamanho da animação
+                fit: BoxFit.contain,
+              ),
+            ),
+          ),
+          SizedBox(height: 48.0), // Aumentando o espaçamento
+          Text(
+            onboardingData[index]['text'],
+            textAlign: TextAlign.center,
+            style: TextStyle(fontSize: 24.0), // Aumentando o tamanho do texto
+          ),
+        ],
+      ),
+    );
+  }
+
+  List<Widget> buildPageIndicator() {
+    List<Widget> indicators = [];
+
+    for (int i = 0; i < onboardingData.length; i++) {
+      indicators.add(
+        Container(
+          width: 10.0,
+          height: 10.0,
+          margin: EdgeInsets.symmetric(horizontal: 4.0),
+          decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            color: _currentPage == i ? Colors.blue : Colors.grey,
+          ),
         ),
       );
-}
+    }
 
-class MyTextButton extends StatelessWidget {
-  const MyTextButton({
-    Key? key,
-    required this.buttonName,
-    required this.onpressed,
-    required this.btColor,
-  }) : super(key: key);
-  final String buttonName;
-  final VoidCallback onpressed;
-  final Color btColor;
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20),
-      child: SizedBox(
-        height: SizeConfig.blockSizeH! * 10,
-        width: SizeConfig.blockSizeH! * 100,
-        child: TextButton(
-          onPressed: onpressed,
-          child: Text(
-            buttonName,
-            style: kBodyText1,
-          ),
-          style: TextButton.styleFrom(
-            backgroundColor: btColor,
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class OnboardingButton extends StatelessWidget {
-  const OnboardingButton({
-    Key? key,
-    required this.name,
-    required this.onPressed,
-  }) : super(key: key);
-  final String name;
-  final VoidCallback onPressed;
-
-  @override
-  Widget build(BuildContext context) {
-    return InkWell(
-      onTap: onPressed,
-      borderRadius: BorderRadius.circular(6),
-      splashColor: Colors.black12,
-      child: Padding(
-        padding: const EdgeInsets.all(4.0),
-        child: Text(
-          name,
-          style: kBodyText1,
-        ),
-      ),
-    );
+    return indicators;
   }
 }

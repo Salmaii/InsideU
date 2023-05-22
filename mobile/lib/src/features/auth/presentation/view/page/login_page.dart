@@ -168,6 +168,7 @@ class _LoginPageState extends ModularState<LoginPage, LoginViewModel> {
       debugShowCheckedModeBanner: false,
       theme: getTheme(),
       home: Scaffold(
+        backgroundColor: AppColors.primary,
         appBar: AppBar(centerTitle: true, title: const Text('InLaw')),
         body: Center(
           child: SingleChildScrollView(
