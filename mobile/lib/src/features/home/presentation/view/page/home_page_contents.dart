@@ -12,8 +12,33 @@ class HomePageContents extends StatefulWidget {
 }
 
 class _HomePageContentsState
-    extends ModularState<HomePageContents, HomeViewModel> {
+    extends ModularState<HomePageContents, HomeViewModel>
+    with SingleTickerProviderStateMixin {
   late ThemeData _theme;
+  late AnimationController _animationController;
+  double _blockHeight = 100.0;
+
+  @override
+  void initState() {
+    super.initState();
+    _animationController = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 300),
+    );
+  }
+
+  @override
+  void dispose() {
+    _animationController.dispose();
+    super.dispose();
+  }
+
+  void _toggleBlockExpansion() {
+    setState(() {
+      _blockHeight =
+          _blockHeight == 100.0 ? MediaQuery.of(context).size.height : 100.0;
+    });
+  }
 
   Widget get _pageName => Container(
         width: double.infinity,
@@ -27,36 +52,37 @@ class _HomePageContentsState
 
   Widget _categoryBlock(
       BuildContext context, String categoryName, String imagePath) {
-    return Container(
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(10),
-      ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Image.asset(
-            imagePath,
-            height: 100,
-            width: 100,
-            fit: BoxFit.fitWidth,
-          ),
-          SizedBox(height: 10),
-          TextButton(
-            style: TextButton.styleFrom(
-              splashFactory: NoSplash.splashFactory,
-              padding: const EdgeInsets.all(0),
-              textStyle: TextStyle(fontSize: 18),
+    return InkWell(
+      onTap: () {
+        _toggleBlockExpansion();
+        Future.delayed(const Duration(milliseconds: 300), () {
+          Modular.to.pushNamed('/category/$categoryName');
+        });
+      },
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 300),
+        curve: Curves.easeInOut,
+        height: _blockHeight,
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(10),
+        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Image.asset(
+              imagePath,
+              height: 100,
+              width: 100,
+              fit: BoxFit.fitWidth,
             ),
-            onPressed: () {
-              Navigator.pushNamed(context, '/home/$categoryName');
-            },
-            child: Text(
+            SizedBox(height: 10),
+            Text(
               categoryName,
               style: TextStyle(color: Colors.black),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
