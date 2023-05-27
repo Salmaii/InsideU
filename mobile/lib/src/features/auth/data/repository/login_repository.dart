@@ -8,10 +8,12 @@ class LoginRepository implements ILogin {
   @override
   Future<User> login(User user) async {
     final dto = UserDto.fromDomain(user);
-    final response = await Dio().post( 
+    final response = await Dio().post(
+      // TODO validate user
       'http://flutter-api.mocklab.io/auth/login',
       data: dto.toJson(),
     );
+    // response.statusCode = 200;
     if (response.statusCode == 200) {
       final token = response.headers.value('Authorization');
       final domain = User(user.email, null, token: token);

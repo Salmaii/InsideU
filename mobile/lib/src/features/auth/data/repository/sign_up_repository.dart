@@ -7,13 +7,16 @@ class SignUpRepository implements ISignUp {
   @override
   Future<SignUpUser> signUp(SignUpUser signUpUser) async {
     final dto = SignUpUserDto.fromDomain(signUpUser);
-    final response = await Dio().post( 
+    final response = await Dio().post(
+      // TODO validate user
       'http://flutter-api.mocklab.io/auth/login',
       data: dto.toJson(),
     );
+    // response.statusCode = 200;
     if (response.statusCode == 200) {
       final token = response.headers.value('Authorization');
-      final domain = SignUpUser(signUpUser.name, signUpUser.email, null, token: token);
+      final domain =
+          SignUpUser(signUpUser.name, signUpUser.email, null, token: token);
       return Future.value(domain);
     } else {
       throw Exception("Algo de errado aconteceu");
