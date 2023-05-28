@@ -1,3 +1,4 @@
+import 'package:InLaw/src/features/category/presentation/view/page/category_page.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
 import 'presentation/view/page/home_page.dart';
@@ -24,5 +25,6 @@ class HomeModule extends Module {
         ChildRoute('/search', child: (_, __) => SearchPage()),
         ChildRoute('/notifications', child: (_, __) => NotificationPage()),
         ChildRoute('/profile', child: (_, __) => ProfilePage()),
+        ChildRoute('/category', child: (_, __) => CategoryPage()),
       ];
 }
