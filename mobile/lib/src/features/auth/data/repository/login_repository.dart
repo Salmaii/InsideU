@@ -25,11 +25,9 @@ class LoginRepository implements ILogin {
       return Future.value(domain);
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
-        print('No user found for that email.');
         throw UserNotFoundException(user
             .email); // Create a custom exception class for UserNotFoundException
       } else if (e.code == 'wrong-password') {
-        print('Wrong password provided for that user.');
         throw InvalidCredentialsException(); // Create a custom exception class for InvalidCredentialsException
       } else {
         print('An error occurred: $e');
