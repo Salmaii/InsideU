@@ -105,7 +105,16 @@ class _ForgotPasswordPageState
       debugShowCheckedModeBanner: false,
       theme: getTheme(),
       home: Scaffold(
-        appBar: AppBar(centerTitle: true, title: const Text('InLaw')),
+        appBar: AppBar(
+          centerTitle: true,
+          title: const Text('InLaw'),
+          leading: IconButton(
+            icon: const Icon(Icons.arrow_back),
+            onPressed: () {
+              Modular.to.pop();
+            },
+          ),
+        ),
         body: Center(
           child: SingleChildScrollView(
               child: Container(

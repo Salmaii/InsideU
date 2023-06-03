@@ -5,15 +5,24 @@ import 'package:flutter_modular/flutter_modular.dart';
 class CategoryPage extends StatelessWidget {
   final String titulo;
 
-  CategoryPage({Key? key, required this.titulo}) : super(key: key);
+  const CategoryPage({Key? key, required this.titulo}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(titulo),
+    return MaterialApp(
+      theme: getTheme(),
+      home: Scaffold(
+        appBar: AppBar(
+          title: Text(titulo),
+          leading: IconButton(
+            icon: const Icon(Icons.arrow_back),
+            onPressed: () {
+              Modular.to.pop();
+            },
+          ),
+        ),
+        // Restante do conteúdo da página
       ),
-      // Restante do conteúdo da página
     );
   }
 }

@@ -137,7 +137,16 @@ class _SignUpPageState extends ModularState<SignUpPage, SignUpViewModel> {
       debugShowCheckedModeBanner: false,
       theme: getTheme(),
       home: Scaffold(
-        appBar: AppBar(centerTitle: true, title: const Text('InLaw')),
+        appBar: AppBar(
+          centerTitle: true,
+          title: const Text('InLaw'),
+          leading: IconButton(
+            icon: const Icon(Icons.arrow_back),
+            onPressed: () {
+              Modular.to.pop();
+            },
+          ),
+        ),
         backgroundColor: AppColors.primary,
         body: Center(
           child: SingleChildScrollView(

@@ -138,7 +138,7 @@ class _HomePageContentsState
       debugShowCheckedModeBanner: false,
       theme: getTheme(),
       home: Scaffold(
-        appBar: AppBar(centerTitle: true, title: const Text('InLaw')),
+        appBar: AppBar(centerTitle: true, title: const Text('Categories')),
         body: Container(
           height: MediaQuery.of(context).size.height * 0.88,
           decoration: const BoxDecoration(

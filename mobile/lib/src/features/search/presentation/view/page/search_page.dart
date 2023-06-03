@@ -26,7 +26,7 @@ class _SearchPageState extends State<SearchPage> {
             : TextField(
                 controller: _searchController,
                 decoration: InputDecoration(
-                  hintText: 'Pesquisar',
+                  hintText: 'Search',
                   border: InputBorder.none,
                 ),
                 onChanged: (value) {
