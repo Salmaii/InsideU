@@ -1,24 +1,32 @@
-import 'package:dio/dio.dart';
-import 'package:InLaw/src/features/auth/data/dto/sign_up_dto.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import '../../domain/model/sign_up_user.dart';
 import '../../domain/repository/sign_up_interface.dart';
 
 class SignUpRepository implements ISignUp {
   @override
   Future<SignUpUser> signUp(SignUpUser signUpUser) async {
-    final dto = SignUpUserDto.fromDomain(signUpUser);
-    final response = await Dio().post(
-      // TODO validate user
-      'http://flutter-api.mocklab.io/auth/login',
-      data: dto.toJson(),
-    );
-    // response.statusCode = 200;
-    if (response.statusCode == 200) {
-      final token = response.headers.value('Authorization');
+    try {
+      final userCredential =
+          await FirebaseAuth.instance.createUserWithEmailAndPassword(
+        email: signUpUser.email,
+        password: signUpUser.password!,
+      );
+
+      final token = await userCredential.user!.getIdToken();
       final domain =
           SignUpUser(signUpUser.name, signUpUser.email, null, token: token);
-      return Future.value(domain);
-    } else {
+      return domain;
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'weak-password') {
+        print('The password provided is too weak.');
+      } else if (e.code == 'email-already-in-use') {
+        print('The account already exists for that email.');
+      } else {
+        print('An error occurred: $e');
+      }
+      throw Exception("Algo de errado aconteceu");
+    } catch (e) {
+      print('An error occurred: $e');
       throw Exception("Algo de errado aconteceu");
     }
   }
