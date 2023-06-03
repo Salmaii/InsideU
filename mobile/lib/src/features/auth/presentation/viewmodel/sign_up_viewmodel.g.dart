@@ -6,10 +6,11 @@ part of 'sign_up_viewmodel.dart';
 // StoreGenerator
 // **************************************************************************
 
-// ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
+// ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic, no_leading_underscores_for_local_identifiers
 
 mixin _$SignUpViewModel on _SignUpViewModelBase, Store {
-  final _$nameAtom = Atom(name: '_SignUpViewModelBase.name');
+  late final _$nameAtom =
+      Atom(name: '_SignUpViewModelBase.name', context: context);
 
   @override
   String get name {
@@ -24,7 +25,8 @@ mixin _$SignUpViewModel on _SignUpViewModelBase, Store {
     });
   }
 
-  final _$emailAtom = Atom(name: '_SignUpViewModelBase.email');
+  late final _$emailAtom =
+      Atom(name: '_SignUpViewModelBase.email', context: context);
 
   @override
   String get email {
@@ -39,7 +41,8 @@ mixin _$SignUpViewModel on _SignUpViewModelBase, Store {
     });
   }
 
-  final _$passwordAtom = Atom(name: '_SignUpViewModelBase.password');
+  late final _$passwordAtom =
+      Atom(name: '_SignUpViewModelBase.password', context: context);
 
   @override
   String get password {
@@ -54,7 +57,8 @@ mixin _$SignUpViewModel on _SignUpViewModelBase, Store {
     });
   }
 
-  final _$isLoadingAtom = Atom(name: '_SignUpViewModelBase.isLoading');
+  late final _$isLoadingAtom =
+      Atom(name: '_SignUpViewModelBase.isLoading', context: context);
 
   @override
   bool get isLoading {
@@ -69,8 +73,8 @@ mixin _$SignUpViewModel on _SignUpViewModelBase, Store {
     });
   }
 
-  final _$_SignUpViewModelBaseActionController =
-      ActionController(name: '_SignUpViewModelBase');
+  late final _$_SignUpViewModelBaseActionController =
+      ActionController(name: '_SignUpViewModelBase', context: context);
 
   @override
   void validateName() {
@@ -125,7 +129,7 @@ mixin _$SignUpError on _SignUpErrorBase, Store {
               name: '_SignUpErrorBase.hasErrors'))
           .value;
 
-  final _$nameAtom = Atom(name: '_SignUpErrorBase.name');
+  late final _$nameAtom = Atom(name: '_SignUpErrorBase.name', context: context);
 
   @override
   String? get name {
@@ -140,7 +144,8 @@ mixin _$SignUpError on _SignUpErrorBase, Store {
     });
   }
 
-  final _$emailAtom = Atom(name: '_SignUpErrorBase.email');
+  late final _$emailAtom =
+      Atom(name: '_SignUpErrorBase.email', context: context);
 
   @override
   String? get email {
@@ -155,7 +160,8 @@ mixin _$SignUpError on _SignUpErrorBase, Store {
     });
   }
 
-  final _$passwordAtom = Atom(name: '_SignUpErrorBase.password');
+  late final _$passwordAtom =
+      Atom(name: '_SignUpErrorBase.password', context: context);
 
   @override
   String? get password {
@@ -170,7 +176,8 @@ mixin _$SignUpError on _SignUpErrorBase, Store {
     });
   }
 
-  final _$signUpAtom = Atom(name: '_SignUpErrorBase.signUp');
+  late final _$signUpAtom =
+      Atom(name: '_SignUpErrorBase.signUp', context: context);
 
   @override
   String? get signUp {

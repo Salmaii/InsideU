@@ -49,7 +49,8 @@ abstract class _SignUpViewModelBase with Store {
       isLoading = true;
       try {
         await _usecase.signUp(name, email, password);
-        //page to 
+        // Modular.to.pushReplacementNamed('/home/');
+        //page to
       } on UnimplementedError {
         // TODO: Fix!!!
         error.signUp = 'Função não implementada!';
@@ -63,7 +64,6 @@ abstract class _SignUpViewModelBase with Store {
 class SignUpError = _SignUpErrorBase with _$SignUpError;
 
 abstract class _SignUpErrorBase with Store {
-
   @observable
   String? name;
 
@@ -77,7 +77,8 @@ abstract class _SignUpErrorBase with Store {
   String? signUp;
 
   @computed
-  bool get hasErrors => name != null || email != null || password != null || signUp != null;
+  bool get hasErrors =>
+      name != null || email != null || password != null || signUp != null;
 
   void clear() {
     name = null;

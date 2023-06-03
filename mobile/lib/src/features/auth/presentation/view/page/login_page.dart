@@ -5,6 +5,7 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:localization/localization.dart';
 import '../../viewmodel/login_viewmodel.dart';
+import 'package:InLaw/src/features/auth/presentation/viewmodel/login_viewmodel.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -67,19 +68,10 @@ class _LoginPageState extends ModularState<LoginPage, LoginViewModel> {
               ? null
               : () {
                   //Correct Function !
-                  /* 
-            var validateLogin = store.login; 
-            if(validateLogin == true){
-              Modular.to.pop('/'); //Use Modular to pop actual route
-              Modular.to.pushNamed('/home/userId'); //Use Modular args to use userId
-            }
-            */
-                  //Correct Function!
-
-                  // NO Validating just for testing! //TODO Validate User
-                  // TODO Do not restore login page after login
-                  // Navigator.pushReplacementNamed(context, "/home/");
-                  Modular.to.pushNamed('/home/');
+                  // var validateLogin = store.login();
+                  // Mail: inside.u.dev@gmail.com
+                  // password InsideU@dev2023
+                  Navigator.pushNamed(context, "/home/");
                 },
           child: Text('login'.i18n()),
         ),
@@ -141,6 +133,14 @@ class _LoginPageState extends ModularState<LoginPage, LoginViewModel> {
         ],
       );
 
+  Widget get _errorMessage => Text(
+        store.error.login ??
+            '', // Verifica se o valor é nulo e trata como uma string vazia
+        style: const TextStyle(
+          color: Colors.red, // Estilo de texto vermelho para indicar um erro
+        ),
+      );
+
   Widget get _formBuild => Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.center,
@@ -154,6 +154,7 @@ class _LoginPageState extends ModularState<LoginPage, LoginViewModel> {
           _email,
           _password,
           _loginButton,
+          _errorMessage, // Adicione este widget
           _forgotPasswordButton,
           _divider,
           _signUp,

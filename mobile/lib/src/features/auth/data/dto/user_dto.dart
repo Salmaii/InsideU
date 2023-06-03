@@ -6,7 +6,7 @@ class UserDto {
   final String? email;
   final String? password;
 
-  factory UserDto.fromDomain(User user) {
+  factory UserDto.fromDomain(AppUser user) {
     return UserDto(user.email, user.password);
   }
 

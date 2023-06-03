@@ -1,3 +1,4 @@
+import 'package:InLaw/src/features/auth/data/repository/login_repository.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 
@@ -20,6 +21,9 @@ abstract class _LoginViewModelBase with Store {
   @observable
   bool isLoading = false;
 
+  // @observable
+  // String loginError = '';
+
   @action
   void validateEmail() {
     error.email = _usecase.validateEmail(email);
@@ -40,9 +44,14 @@ abstract class _LoginViewModelBase with Store {
       isLoading = true;
       try {
         await _usecase.login(email, password);
-        //page to
+        Modular.to.pushReplacementNamed('/home/');
+      } on UserNotFoundException catch (e) {
+        error.login = 'Username not found';
+      } on InvalidCredentialsException catch (e) {
+        error.login = 'Invalid Credentials';
+      } on Exception catch (e) {
+        error.login = 'Something went wrong';
       } on UnimplementedError {
-        // TODO: Fix!!!
         error.login = 'Função não implementada!';
       } finally {
         isLoading = false;
