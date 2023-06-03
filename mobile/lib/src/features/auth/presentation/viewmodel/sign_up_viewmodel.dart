@@ -1,6 +1,7 @@
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 
+import '../../data/repository/sign_up_repository.dart';
 import '../../domain/usecase/sign_up_usecase.dart';
 
 part 'sign_up_viewmodel.g.dart';
@@ -50,10 +51,13 @@ abstract class _SignUpViewModelBase with Store {
       try {
         await _usecase.signUp(name, email, password);
         // Modular.to.pushReplacementNamed('/home/');
-        //page to
-      } on UnimplementedError {
-        // TODO: Fix!!!
-        error.signUp = 'Função não implementada!';
+        // página seguinte
+      } on WeakPasswordException {
+        error.password = 'A senha fornecida é muito fraca.';
+      } on EmailAlreadyInUseException {
+        error.email = 'A conta já existe para esse e-mail.';
+      } on Exception catch (e) {
+        error.signUp = 'Ocorreu um erro: $e';
       } finally {
         isLoading = false;
       }

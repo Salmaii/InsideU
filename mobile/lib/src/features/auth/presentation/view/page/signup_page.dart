@@ -105,6 +105,14 @@ class _SignUpPageState extends ModularState<SignUpPage, SignUpViewModel> {
         ),
       );
 
+  Widget get _errorMessage => Text(
+        store.error.signUp ??
+            '', // Verifica se o valor é nulo e trata como uma string vazia
+        style: const TextStyle(
+          color: Colors.red, // Estilo de texto vermelho para indicar um erro
+        ),
+      );
+
   Widget get _formBuild => Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.center,
@@ -116,6 +124,7 @@ class _SignUpPageState extends ModularState<SignUpPage, SignUpViewModel> {
           _email,
           _password,
           _signUpButton,
+          _errorMessage,
           _backToLoginButton,
           _loadingIndicator,
         ],

@@ -2,6 +2,14 @@ import 'package:firebase_auth/firebase_auth.dart';
 import '../../domain/model/sign_up_user.dart';
 import '../../domain/repository/sign_up_interface.dart';
 
+class WeakPasswordException implements Exception {
+  // Adicione campos ou métodos adicionais, se necessário
+}
+
+class EmailAlreadyInUseException implements Exception {
+  // Adicione campos ou métodos adicionais, se necessário
+}
+
 class SignUpRepository implements ISignUp {
   @override
   Future<SignUpUser> signUp(SignUpUser signUpUser) async {
@@ -18,9 +26,9 @@ class SignUpRepository implements ISignUp {
       return domain;
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
-        print('The password provided is too weak.');
+        throw WeakPasswordException();
       } else if (e.code == 'email-already-in-use') {
-        print('The account already exists for that email.');
+        throw EmailAlreadyInUseException();
       } else {
         print('An error occurred: $e');
       }
