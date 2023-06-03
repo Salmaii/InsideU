@@ -11,6 +11,8 @@ import 'package:InLaw/src/features/profile/presentation/view/page/profile_page.d
 import 'package:InLaw/src/features/notifications/presentation/view/page/notifications_page.dart';
 import 'package:InLaw/src/features/search/presentation/view/page/search_page.dart';
 
+import 'package:InLaw/src/features/category/category_module.dart';
+
 class HomeModule extends Module {
   @override
   List<Bind<Object>> get binds => [
@@ -25,6 +27,6 @@ class HomeModule extends Module {
         ChildRoute('/search', child: (_, __) => SearchPage()),
         ChildRoute('/notifications', child: (_, __) => NotificationPage()),
         ChildRoute('/profile', child: (_, __) => ProfilePage()),
-        ChildRoute('/category', child: (_, __) => CategoryPage()),
+        ModuleRoute('/category/', module: CategoryModule()),
       ];
 }
