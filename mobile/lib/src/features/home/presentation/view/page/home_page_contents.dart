@@ -56,7 +56,7 @@ class _HomePageContentsState
       onTap: () {
         _toggleBlockExpansion();
         Future.delayed(const Duration(milliseconds: 300), () {
-          Modular.to.pushNamed('/category/$categoryName');
+          Modular.to.pushNamed('/home/category', arguments: categoryName);
         });
       },
       child: AnimatedContainer(

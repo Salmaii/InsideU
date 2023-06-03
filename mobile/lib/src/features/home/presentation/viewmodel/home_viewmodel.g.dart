@@ -6,10 +6,11 @@ part of 'home_viewmodel.dart';
 // StoreGenerator
 // **************************************************************************
 
-// ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
+// ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic, no_leading_underscores_for_local_identifiers
 
 mixin _$HomeViewModel on _HomeViewModelBase, Store {
-  final _$nameAtom = Atom(name: '_HomeViewModelBase.name');
+  late final _$nameAtom =
+      Atom(name: '_HomeViewModelBase.name', context: context);
 
   @override
   String get name {
@@ -24,7 +25,8 @@ mixin _$HomeViewModel on _HomeViewModelBase, Store {
     });
   }
 
-  final _$emailAtom = Atom(name: '_HomeViewModelBase.email');
+  late final _$emailAtom =
+      Atom(name: '_HomeViewModelBase.email', context: context);
 
   @override
   String get email {
@@ -39,7 +41,8 @@ mixin _$HomeViewModel on _HomeViewModelBase, Store {
     });
   }
 
-  final _$isLoadingAtom = Atom(name: '_HomeViewModelBase.isLoading');
+  late final _$isLoadingAtom =
+      Atom(name: '_HomeViewModelBase.isLoading', context: context);
 
   @override
   bool get isLoading {
@@ -54,8 +57,8 @@ mixin _$HomeViewModel on _HomeViewModelBase, Store {
     });
   }
 
-  final _$_HomeViewModelBaseActionController =
-      ActionController(name: '_HomeViewModelBase');
+  late final _$_HomeViewModelBaseActionController =
+      ActionController(name: '_HomeViewModelBase', context: context);
 
   @override
   void validateName() {
@@ -98,7 +101,7 @@ mixin _$HomeError on _HomeErrorBase, Store {
               name: '_HomeErrorBase.hasErrors'))
           .value;
 
-  final _$nameAtom = Atom(name: '_HomeErrorBase.name');
+  late final _$nameAtom = Atom(name: '_HomeErrorBase.name', context: context);
 
   @override
   String? get name {
@@ -113,7 +116,7 @@ mixin _$HomeError on _HomeErrorBase, Store {
     });
   }
 
-  final _$emailAtom = Atom(name: '_HomeErrorBase.email');
+  late final _$emailAtom = Atom(name: '_HomeErrorBase.email', context: context);
 
   @override
   String? get email {
@@ -128,7 +131,7 @@ mixin _$HomeError on _HomeErrorBase, Store {
     });
   }
 
-  final _$homeAtom = Atom(name: '_HomeErrorBase.home');
+  late final _$homeAtom = Atom(name: '_HomeErrorBase.home', context: context);
 
   @override
   String? get home {
