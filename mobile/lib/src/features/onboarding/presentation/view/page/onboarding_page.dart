@@ -64,12 +64,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
                   },
                 ),
               ),
-              SizedBox(height: 32.0), // Aumentando o espaçamento
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: buildPageIndicator(),
-              ),
-              SizedBox(height: 32.0), // Aumentando o espaçamento
+              SizedBox(height: 100.0),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
@@ -81,10 +76,10 @@ class _OnboardingPageState extends State<OnboardingPage> {
                           curve: Curves.ease,
                         );
                       },
-                      child: Text('Back'.i18n(),
-                          style: TextStyle(
-                              fontSize:
-                                  18.0)), // Aumentando o tamanho do texto do botão
+                      child: Text(
+                        'Back'.i18n(),
+                        style: TextStyle(fontSize: 18.0),
+                      ),
                     ),
                   if (_currentPage != onboardingData.length - 1)
                     ElevatedButton(
@@ -94,22 +89,27 @@ class _OnboardingPageState extends State<OnboardingPage> {
                           curve: Curves.ease,
                         );
                       },
-                      child: Text('Next'.i18n(),
-                          style: TextStyle(
-                              fontSize:
-                                  18.0)), // Aumentando o tamanho do texto do botão
+                      child: Text(
+                        'Next'.i18n(),
+                        style: TextStyle(fontSize: 18.0),
+                      ),
                     ),
                   if (_currentPage == onboardingData.length - 1)
                     ElevatedButton(
                       onPressed: () {
                         Modular.to.pushReplacementNamed('/login/');
                       },
-                      child: Text('Login'.i18n(),
-                          style: TextStyle(
-                              fontSize:
-                                  18.0)), // Aumentando o tamanho do texto do botão
+                      child: Text(
+                        'Login'.i18n(),
+                        style: TextStyle(fontSize: 18.0),
+                      ),
                     ),
                 ],
+              ),
+              SizedBox(height: 50.0),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: buildPageIndicator(),
               ),
             ],
           ),
@@ -125,27 +125,27 @@ class _OnboardingPageState extends State<OnboardingPage> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Image.asset(
-            'lib/assets/images/nameLogoNoBackground.png', // Substitua pelo caminho correto da logo do seu aplicativo
-            width: 150, // Ajuste o tamanho da logo conforme necessário
-            height: 150, // Ajuste o tamanho da logo conforme necessário
+            'lib/assets/images/nameLogoNoBackground.png',
+            width: 150,
+            height: 150,
           ),
-          SizedBox(height: 32.0), // Espaçamento entre a logo e a animação
+          SizedBox(height: 32.0),
           Expanded(
             child: Container(
               alignment: Alignment.center,
               child: Lottie.asset(
                 onboardingData[index]['animation'],
-                width: 300, // Aumentando o tamanho da animação
-                height: 300, // Aumentando o tamanho da animação
+                width: 300,
+                height: 300,
                 fit: BoxFit.contain,
               ),
             ),
           ),
-          SizedBox(height: 48.0), // Aumentando o espaçamento
+          SizedBox(height: 48.0),
           Text(
             onboardingData[index]['text'],
             textAlign: TextAlign.center,
-            style: TextStyle(fontSize: 24.0), // Aumentando o tamanho do texto
+            style: TextStyle(fontSize: 24.0),
           ),
         ],
       ),
