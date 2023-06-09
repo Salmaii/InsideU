@@ -34,5 +34,14 @@
     "password_invalid_special" : "A senha precisa ter no mínimo um caracter especial",
     "password_invalid_number" : "A senha precisa ter no mínimo um número",
     "password_invalid_lower_case" : "A senha precisa ter no mínimo uma letra maiúscula",
-    "password_invalid_upper_case" : "A senha precisa ter no mínimo uma letra minúscula"
+    "password_invalid_upper_case" : "A senha precisa ter no mínimo uma letra minúscula",
+    "exceptions": {
+        "userNotFound": "Usuário não encontrado",
+        "invalidCredentials": "Credenciais inválidas",
+        "somethingWentWrong": "Algo deu errado",
+        "unimplementedFunction": "Função não implementada",
+        "weakPassword": "A senha fornecida é muito fraca.",
+        "emailAlreadyInUse": "A conta já existe para esse e-mail.",
+        "genericError": "Ocorreu um erro."
+    }  
 }

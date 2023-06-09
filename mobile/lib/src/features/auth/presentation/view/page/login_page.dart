@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:localization/localization.dart';
-import '../../viewmodel/login_viewmodel.dart';
 import 'package:InLaw/src/features/auth/presentation/viewmodel/login_viewmodel.dart';
 
 class LoginPage extends StatefulWidget {
@@ -71,6 +70,8 @@ class _LoginPageState extends ModularState<LoginPage, LoginViewModel> {
                   // var validateLogin = store.login();
                   // Mail: inside.u.dev@gmail.com
                   // password InsideU@dev2023
+
+                  // Test Function
                   Navigator.pushNamed(context, "/home/");
                 },
           child: Text('login'.i18n()),
@@ -133,11 +134,13 @@ class _LoginPageState extends ModularState<LoginPage, LoginViewModel> {
         ],
       );
 
-  Widget get _errorMessage => Text(
-        store.error.login ??
-            '', // Verifica se o valor é nulo e trata como uma string vazia
-        style: const TextStyle(
-          color: Colors.red, // Estilo de texto vermelho para indicar um erro
+  Widget get _errorMessage => Center(
+        child: Text(
+          store.error.login ??
+              '', // Verifica se o valor é nulo e trata como uma string vazia
+          style: const TextStyle(
+            color: Colors.red, // Estilo de texto vermelho para indicar um erro
+          ),
         ),
       );
 
@@ -154,8 +157,8 @@ class _LoginPageState extends ModularState<LoginPage, LoginViewModel> {
           _email,
           _password,
           _loginButton,
-          _errorMessage, // Adicione este widget
           _forgotPasswordButton,
+          _errorMessage,
           _divider,
           _signUp,
           _loadingIndicator,

@@ -34,5 +34,14 @@
     "password_invalid_special" : "Password must have a special character",
     "password_invalid_number" : "Password must have a number",
     "password_invalid_lower_case" : "Password must have an uppercase letter",
-    "password_invalid_upper_case" : "Password must have a lowercase letter"
+    "password_invalid_upper_case" : "Password must have a lowercase letter",
+    "exceptions": {
+        "userNotFound": "Username not found",
+        "invalidCredentials": "Invalid credentials",
+        "somethingWentWrong": "Something went wrong",
+        "unimplementedFunction": "Function not implemented",
+        "weakPassword": "The provided password is too weak.",
+        "emailAlreadyInUse": "An account already exists for this email.",
+        "genericError": "An error occurred."
+      }
 }
