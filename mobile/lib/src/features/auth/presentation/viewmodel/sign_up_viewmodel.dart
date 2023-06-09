@@ -90,5 +90,3 @@ abstract class _SignUpErrorBase with Store {
     signUp = null;
   }
 }
-
-// fixed error comment
