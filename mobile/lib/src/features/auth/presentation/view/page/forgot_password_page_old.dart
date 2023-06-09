@@ -1,4 +1,12 @@
-import 'package:InLaw/src/features/auth/presentation/viewmodel/login_viewmodel.dart';
+// import 'package:InLaw/src/features/auth/presentation/viewmodel/login_viewmodel.dart';
+// import 'package:InLaw/src/theme.dart';
+// import 'package:flutter/material.dart';
+// import 'package:flutter_mobx/flutter_mobx.dart';
+// import 'package:flutter_modular/flutter_modular.dart';
+// import 'package:localization/localization.dart';
+// import 'package:InLaw/src/common/form_text_field.dart';
+
+import 'package:InLaw/src/features/auth/presentation/viewmodel/forgot_password_viewmodel.dart';
 import 'package:InLaw/src/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
@@ -14,8 +22,8 @@ class ForgotPasswordPage extends StatefulWidget {
 }
 
 class _ForgotPasswordPageState
-    extends ModularState<ForgotPasswordPage, LoginViewModel> {
-  // TODO ForgotPasswordViewModel
+    extends ModularState<ForgotPasswordPage, ForgotPasswordViewModel> {
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   late ThemeData _theme;
 
   Widget get _pageName => SizedBox(
@@ -23,7 +31,6 @@ class _ForgotPasswordPageState
         height: 60,
         child: Text(
           'Password Recovery'.i18n(),
-          style: kTitleBlack,
           textAlign: TextAlign.center,
         ),
       );
@@ -58,10 +65,11 @@ class _ForgotPasswordPageState
               ),
             ),
           ),
-          //onPressed: store.isLoading ? null : () {store.login, pop},
-          // TODO Modular.to.pop('')
-          // TODO Navigator.pop(context);
-          onPressed: store.isLoading ? null : store.login,
+          onPressed: store.isLoading
+              ? null
+              : () {
+                  store.forgot_password(context);
+                },
           child: Text('send_email'.i18n()),
         ),
       );
@@ -73,14 +81,18 @@ class _ForgotPasswordPageState
         child: TextButton(
           style: TextButton.styleFrom(splashFactory: NoSplash.splashFactory),
           onPressed: store.isLoading
-              // TODO Trocar para Modular.to.pop('')
               ? null
               : () {
-                  Navigator.pop(
-                    context,
-                  );
+                  Modular.to.pop();
                 },
           child: Text('already_have_an_account'.i18n()),
+        ),
+      );
+
+  Widget get _errorMessage => Text(
+        store.error.forgot_password ?? '',
+        style: const TextStyle(
+          color: Colors.red,
         ),
       );
 
@@ -90,6 +102,7 @@ class _ForgotPasswordPageState
         mainAxisSize: MainAxisSize.max,
         children: [
           const SizedBox(height: 5),
+          _errorMessage,
           _pageName,
           _email,
           _recoverPasswordButton,

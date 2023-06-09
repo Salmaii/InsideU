@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 
 import 'app_module.dart';
 import 'app_widget.dart';
@@ -30,6 +31,9 @@ class SplashScreen extends StatelessWidget {
           future: initializeApp(),
           builder: (BuildContext context, AsyncSnapshot<void> snapshot) {
             if (snapshot.connectionState == ConnectionState.done) {
+              WidgetsBinding widgetsBinding =
+                  WidgetsFlutterBinding.ensureInitialized();
+              FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
               return ModularApp(module: AppModule(), child: const AppWidget());
             } else {
               return const Center(
