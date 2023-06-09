@@ -2,13 +2,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import '../../domain/model/sign_up_user.dart';
 import '../../domain/repository/sign_up_interface.dart';
 
-class WeakPasswordException implements Exception {
-  // Adicione campos ou métodos adicionais, se necessário
-}
+class WeakPasswordException implements Exception {}
 
-class EmailAlreadyInUseException implements Exception {
-  // Adicione campos ou métodos adicionais, se necessário
-}
+class EmailAlreadyInUseException implements Exception {}
 
 class SignUpRepository implements ISignUp {
   @override

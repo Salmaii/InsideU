@@ -108,7 +108,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
                     ),
                 ],
               ),
-              SizedBox(height: 50.0),
+              const SizedBox(height: 50.0),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: buildPageIndicator(),

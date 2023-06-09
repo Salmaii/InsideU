@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_modular/flutter_modular.dart';
+// import 'package:flutter_modular/flutter_modular.dart';
 
 import 'package:InLaw/src/features/profile/presentation/view/page/profile_page.dart';
 import 'package:InLaw/src/features/notifications/presentation/view/page/notifications_page.dart';
 import 'package:InLaw/src/features/search/presentation/view/page/search_page.dart';
 
-import '../../viewmodel/home_viewmodel.dart';
 import 'home_page_contents.dart';
 
 class HomePage extends StatefulWidget {
@@ -15,7 +14,7 @@ class HomePage extends StatefulWidget {
   State<HomePage> createState() => _HomePageState();
 }
 
-class _HomePageState extends ModularState<HomePage, HomeViewModel> {
+class _HomePageState extends State<HomePage> {
   int _currentPageIndex = 0;
 
   void _onItemTapped(int index) {

@@ -1,7 +1,6 @@
 import 'package:InLaw/src/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import '../../viewmodel/home_viewmodel.dart';
 
 class HomePageContents extends StatefulWidget {
   const HomePageContents({Key? key}) : super(key: key);
@@ -10,10 +9,8 @@ class HomePageContents extends StatefulWidget {
   State<HomePageContents> createState() => _HomePageContentsState();
 }
 
-class _HomePageContentsState
-    extends ModularState<HomePageContents, HomeViewModel>
+class _HomePageContentsState extends State<HomePageContents>
     with SingleTickerProviderStateMixin {
-  late ThemeData _theme;
   late AnimationController _animationController;
   double _blockHeight = 100.0;
 
@@ -38,16 +35,6 @@ class _HomePageContentsState
           _blockHeight == 100.0 ? MediaQuery.of(context).size.height : 100.0;
     });
   }
-
-  // Widget get _pageName => Container(
-  //       width: double.infinity,
-  //       height: 60,
-  //       child: Text(
-  //         'Home'.i18n(),
-  //         style: title,
-  //         textAlign: TextAlign.center,
-  //       ),
-  //     );
 
   Widget _categoryBlock(
       BuildContext context, String categoryName, String imagePath) {
@@ -131,7 +118,6 @@ class _HomePageContentsState
 
   @override
   Widget build(BuildContext context) {
-    _theme = Theme.of(context);
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: getTheme(),

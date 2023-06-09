@@ -3,10 +3,6 @@ import 'package:flutter_modular/flutter_modular.dart';
 import '../auth/data/repository/login_repository.dart';
 import '../auth/domain/repository/login_interface.dart';
 import 'presentation/view/page/home_page.dart';
-import 'data/repository/home_repository.dart';
-import 'domain/repository/home_interface.dart';
-import 'domain/usecase/home_usecase.dart';
-import 'presentation/viewmodel/home_viewmodel.dart';
 
 import 'package:InLaw/src/features/profile/presentation/view/page/profile_page.dart';
 import 'package:InLaw/src/features/notifications/presentation/view/page/notifications_page.dart';
@@ -20,9 +16,6 @@ import 'package:InLaw/src/features/category/category_module.dart';
 class HomeModule extends Module {
   @override
   List<Bind<Object>> get binds => [
-        Bind.factory((i) => HomeViewModel()),
-        Bind.factory((i) => HomeUseCase()),
-        Bind.factory<IHome>((i) => HomeRepository()),
         Bind.factory((i) => LoginViewModel()),
         Bind.factory((i) => LoginUseCase()),
         Bind.factory<ILogin>((i) => LoginRepository())
