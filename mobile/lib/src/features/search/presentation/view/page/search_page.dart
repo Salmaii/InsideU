@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 class SearchPage extends StatefulWidget {
+  const SearchPage({Key? key}) : super(key: key);
+
   @override
   _SearchPageState createState() => _SearchPageState();
 }
@@ -8,15 +10,16 @@ class SearchPage extends StatefulWidget {
 class _SearchPageState extends State<SearchPage> {
   bool _showSearchBar = false;
   List<String> searchResults = [];
-  TextEditingController _searchController = TextEditingController();
+  final TextEditingController _searchController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: _showSearchBar ? Colors.white : Color(0xFF011C2E),
+        backgroundColor:
+            _showSearchBar ? Colors.white : const Color(0xFF011C2E),
         title: !_showSearchBar
-            ? Text(
+            ? const Text(
                 'Search',
                 style: TextStyle(
                   fontSize: 18,
@@ -25,14 +28,14 @@ class _SearchPageState extends State<SearchPage> {
               )
             : TextField(
                 controller: _searchController,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   hintText: 'Search',
                   border: InputBorder.none,
                 ),
                 onChanged: (value) {
                   // TODO Implementar aqui a lógica de pesquisa
                 },
-                style: TextStyle(
+                style: const TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.bold,
                   color: Colors.black,
@@ -43,7 +46,7 @@ class _SearchPageState extends State<SearchPage> {
         actions: [
           if (_showSearchBar)
             IconButton(
-              icon: Icon(Icons.close),
+              icon: const Icon(Icons.close),
               color: Colors.black,
               onPressed: () {
                 setState(() {
@@ -54,7 +57,7 @@ class _SearchPageState extends State<SearchPage> {
             ),
           if (!_showSearchBar)
             IconButton(
-              icon: Icon(Icons.search),
+              icon: const Icon(Icons.search),
               onPressed: () {
                 setState(() {
                   _showSearchBar = !_showSearchBar;
@@ -65,7 +68,7 @@ class _SearchPageState extends State<SearchPage> {
       ),
       body: Column(
         children: [
-          SizedBox(height: 16),
+          const SizedBox(height: 16),
           Expanded(
             child: ListView.builder(
               itemCount: searchResults.length,
