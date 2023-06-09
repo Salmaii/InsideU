@@ -1,13 +1,19 @@
+import 'package:InLaw/src/features/auth/domain/usecase/login_usecase.dart';
 import 'package:InLaw/src/theme.dart';
 import 'package:flutter/material.dart';
+import 'package:InLaw/src/features/auth/presentation/viewmodel/login_viewmodel.dart';
+import 'package:flutter_modular/flutter_modular.dart';
+import 'package:mobx/mobx.dart';
 
 class ProfilePage extends StatefulWidget {
   @override
   _ProfilePageState createState() => _ProfilePageState();
 }
 
-class _ProfilePageState extends State<ProfilePage> {
+class _ProfilePageState extends ModularState<ProfilePage, LoginViewModel> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+
+  // class _LoginPageState extends ModularState<LoginPage, LoginViewModel> {
 
   @override
   Widget build(BuildContext context) {
@@ -64,10 +70,21 @@ class _ProfilePageState extends State<ProfilePage> {
               ),
               ListTile(
                 title: Text('Logout', style: TextStyle(color: Colors.red)),
-                onTap: () {
-                  // TODO implementar a logica de logout
-                  Navigator.pop(context);
-                },
+                onTap: store.isLoading
+                    ? null
+                    : () {
+                        var validateLogin = store.logout();
+                        // Navigator.pushNamed(context, "/home/");
+                      },
+                // onTap: () {
+
+                //   LoginViewModel loginViewModel = Modular.get<LoginViewModel>();
+                //   loginViewModel.logout();
+
+                //   store.logout()
+                //   // TODO implementar a logica de logout
+                //   Navigator.pop(context);
+                // },
               ),
             ],
           ),

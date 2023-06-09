@@ -1,7 +1,8 @@
-import 'package:InLaw/src/features/auth/data/repository/login_repository.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
+import 'package:InLaw/src/features/auth/data/repository/login_repository.dart';
 import '../../domain/usecase/login_usecase.dart';
 
 part 'login_viewmodel.g.dart';
@@ -20,9 +21,6 @@ abstract class _LoginViewModelBase with Store {
 
   @observable
   bool isLoading = false;
-
-  // @observable
-  // String loginError = '';
 
   @action
   void validateEmail() {
@@ -57,6 +55,22 @@ abstract class _LoginViewModelBase with Store {
         isLoading = false;
       }
     }
+  }
+
+  void logout() async {
+    clear();
+    // Adicione a lógica do logout aqui, como limpar os dados de autenticação, fazer logout do usuário, etc.
+    // Por exemplo, se você estiver usando Firebase Authentication, pode chamar o método `signOut()`:
+
+    await FirebaseAuth.instance.signOut();
+
+    // Redirecione o usuário para a tela de login após fazer logout:
+    Modular.to.pushReplacementNamed('/login');
+  }
+
+  void clear() {
+    email = '';
+    password = '';
   }
 }
 
