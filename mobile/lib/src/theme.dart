@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import './size_configs.dart';
 
 class AppColors {
   static const primary = Color(0xFF011C2E);
