@@ -13,7 +13,9 @@ import 'domain/repository/sign_up_interface.dart';
 import 'domain/usecase/sign_up_usecase.dart';
 import 'presentation/viewmodel/sign_up_viewmodel.dart';
 
-import 'package:InLaw/src/features/auth/presentation/view/page/forgotpassword_page.dart';
+import 'package:InLaw/src/features/auth/presentation/view/page/forgot_password_page.dart';
+import 'domain/usecase/forgot_password_usecase.dart';
+import 'presentation/viewmodel/forgot_password_viewmodel.dart';
 
 class AuthModule extends Module {
   @override
@@ -24,6 +26,8 @@ class AuthModule extends Module {
         Bind.factory((i) => SignUpViewModel()),
         Bind.factory((i) => SignUpUseCase()),
         Bind.factory<ISignUp>((i) => SignUpRepository()),
+        Bind.factory((i) => ForgotPasswordViewModel()),
+        Bind.factory((i) => ForgotPasswordUseCase()),
       ];
 
   @override
