@@ -1,7 +1,6 @@
 import 'package:InLaw/src/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:localization/localization.dart';
 import '../../viewmodel/home_viewmodel.dart';
 
 class HomePageContents extends StatefulWidget {
@@ -40,15 +39,15 @@ class _HomePageContentsState
     });
   }
 
-  Widget get _pageName => Container(
-        width: double.infinity,
-        height: 60,
-        child: Text(
-          'Home'.i18n(),
-          style: kTitleBlack,
-          textAlign: TextAlign.center,
-        ),
-      );
+  // Widget get _pageName => Container(
+  //       width: double.infinity,
+  //       height: 60,
+  //       child: Text(
+  //         'Home'.i18n(),
+  //         style: title,
+  //         textAlign: TextAlign.center,
+  //       ),
+  //     );
 
   Widget _categoryBlock(
       BuildContext context, String categoryName, String imagePath) {
@@ -126,7 +125,6 @@ class _HomePageContentsState
         mainAxisSize: MainAxisSize.min,
         children: [
           const SizedBox(height: 5),
-          _pageName,
           _categoryContainer,
         ],
       );
