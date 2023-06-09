@@ -16,16 +16,6 @@ class SignUpPage extends StatefulWidget {
 class _SignUpPageState extends ModularState<SignUpPage, SignUpViewModel> {
   late ThemeData _theme;
 
-  Widget get _pageName => SizedBox(
-        width: double.infinity,
-        height: 60,
-        child: Text(
-          'Sign Up'.i18n(),
-          style: kTitleBlack,
-          textAlign: TextAlign.center,
-        ),
-      );
-
   Widget get _loadingIndicator => Visibility(
         child: const LinearProgressIndicator(
           backgroundColor: Colors.blueGrey,
@@ -41,7 +31,6 @@ class _SignUpPageState extends ModularState<SignUpPage, SignUpViewModel> {
         hint: 'name_hint'.i18n(),
         enabled: !store.isLoading,
         errorText: store.error.name,
-        //errorText: store.error.name,
         onChange: (value) => store.name = value,
       );
 
@@ -79,10 +68,13 @@ class _SignUpPageState extends ModularState<SignUpPage, SignUpViewModel> {
               ),
             ),
           ),
-          //onPressed: store.isLoading ? null : () {store.login, pop},
-          // TODO Modular.to.pop('')
-          // TODO Navigator.pop(context);
-          onPressed: store.isLoading ? null : store.signUp,
+          onPressed: store.isLoading
+              ? null
+              : () {
+                  store.signUp();
+                  // Test Function
+                  // Navigator.pushNamed(context, "/home/");
+                },
           child: Text('signup'.i18n()),
         ),
       );
@@ -96,20 +88,19 @@ class _SignUpPageState extends ModularState<SignUpPage, SignUpViewModel> {
           onPressed: store.isLoading
               ? null
               : () {
-                  // TODO Trocar para Modular.to.pop('')
-                  Navigator.pop(
-                    context,
-                  );
+                  Modular.to.pop();
                 },
           child: Text('already_have_an_account'.i18n()),
         ),
       );
 
-  Widget get _errorMessage => Text(
-        store.error.signUp ??
-            '', // Verifica se o valor é nulo e trata como uma string vazia
-        style: const TextStyle(
-          color: Colors.red, // Estilo de texto vermelho para indicar um erro
+  Widget get _errorMessage => Center(
+        child: Text(
+          store.error.signUp ??
+              '', // Verifica se o valor é nulo e trata como uma string vazia
+          style: const TextStyle(
+            color: Colors.red, // Estilo de texto vermelho para indicar um erro
+          ),
         ),
       );
 
@@ -119,12 +110,12 @@ class _SignUpPageState extends ModularState<SignUpPage, SignUpViewModel> {
         mainAxisSize: MainAxisSize.max,
         children: [
           const SizedBox(height: 5),
-          _pageName,
+          // _pageName,
+          _errorMessage,
           _name,
           _email,
           _password,
           _signUpButton,
-          _errorMessage,
           _backToLoginButton,
           _loadingIndicator,
         ],
@@ -139,7 +130,7 @@ class _SignUpPageState extends ModularState<SignUpPage, SignUpViewModel> {
       home: Scaffold(
         appBar: AppBar(
           centerTitle: true,
-          title: const Text('InLaw'),
+          title: const Text('Sign Up'),
           leading: IconButton(
             icon: const Icon(Icons.arrow_back),
             onPressed: () {
