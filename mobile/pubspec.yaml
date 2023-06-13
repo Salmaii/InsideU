@@ -29,6 +29,7 @@ dependencies:
   material: ^1.0.0+2
   firebase_core: ^2.13.0
   firebase_auth: ^4.6.1
+  cloud_firestore: ^4.8.0
 
 flutter_native_splash:
   image: lib/assets/images/splashScreen.png
@@ -57,6 +58,7 @@ flutter:
     - lib/assets/
     - lib/assets/i18n/
     - lib/assets/images/
+    - lib/assets/animations/
 
   fonts:
     - family: Kanit
