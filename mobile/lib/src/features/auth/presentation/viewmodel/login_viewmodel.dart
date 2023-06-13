@@ -60,7 +60,7 @@ abstract class _LoginViewModelBase with Store {
   void logout() async {
     clear();
     await FirebaseAuth.instance.signOut();
-    Modular.to.pushReplacementNamed('/login');
+    Modular.to.pushReplacementNamed('/login/');
   }
 
   void clear() {
