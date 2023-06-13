@@ -168,26 +168,24 @@ class _LoginPageState extends ModularState<LoginPage, LoginViewModel> {
   @override
   Widget build(BuildContext context) {
     _theme = Theme.of(context);
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: getTheme(),
-      home: Scaffold(
-        backgroundColor: AppColors.primary,
-        appBar: AppBar(centerTitle: true, title: const Text('InLaw')),
-        body: Center(
-          child: SingleChildScrollView(
-              child: Container(
+    return Scaffold(
+      backgroundColor: AppColors.primary,
+      appBar: AppBar(centerTitle: true, title: const Text('InLaw')),
+      body: Center(
+        child: SingleChildScrollView(
+          child: Container(
             height: MediaQuery.of(context).size.height * 0.88,
             decoration: const BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(40),
-                  topRight: Radius.circular(40),
-                )),
+              color: Colors.white,
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(40),
+                topRight: Radius.circular(40),
+              ),
+            ),
             child: Observer(builder: (_) {
               return Form(child: _formBuild);
             }),
-          )),
+          ),
         ),
       ),
     );

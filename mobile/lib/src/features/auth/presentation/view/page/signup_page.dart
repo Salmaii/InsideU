@@ -124,35 +124,33 @@ class _SignUpPageState extends ModularState<SignUpPage, SignUpViewModel> {
   @override
   Widget build(BuildContext context) {
     _theme = Theme.of(context);
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: getTheme(),
-      home: Scaffold(
-        appBar: AppBar(
-          centerTitle: true,
-          title: const Text('Sign Up'),
-          leading: IconButton(
-            icon: const Icon(Icons.arrow_back),
-            onPressed: () {
-              Modular.to.pop();
-            },
-          ),
+    return Scaffold(
+      appBar: AppBar(
+        centerTitle: true,
+        title: const Text('Sign Up'),
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () {
+            Modular.to.pop();
+          },
         ),
-        backgroundColor: AppColors.primary,
-        body: Center(
-          child: SingleChildScrollView(
-              child: Container(
+      ),
+      backgroundColor: AppColors.primary,
+      body: Center(
+        child: SingleChildScrollView(
+          child: Container(
             height: MediaQuery.of(context).size.height * 0.88,
             decoration: const BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(40),
-                  topRight: Radius.circular(40),
-                )),
+              color: Colors.white,
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(40),
+                topRight: Radius.circular(40),
+              ),
+            ),
             child: Observer(builder: (_) {
               return Form(child: _formBuild);
             }),
-          )),
+          ),
         ),
       ),
     );

@@ -21,74 +21,71 @@ class _NotificationPageState extends State<NotificationPage> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'InLaw',
-      home: Scaffold(
-        appBar: AppBar(
-          backgroundColor: _showSearchBar ? Colors.white : Color(0xFF011C2E),
-          title: _showSearchBar
-              ? Container(
-                  height: kToolbarHeight,
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(30),
-                  ),
-                  child: Row(
-                    children: [
-                      Expanded(
-                        child: TextField(
-                          controller: _searchController,
-                          decoration: InputDecoration(
-                            hintText: 'Pesquisar',
-                            border: InputBorder.none,
-                            contentPadding:
-                                const EdgeInsets.symmetric(horizontal: 16),
-                          ),
-                          onChanged: (value) {
-                            // TODO Implementar logica da pesquisa
-                          },
+    return Scaffold(
+      appBar: AppBar(
+        automaticallyImplyLeading: false, // Remover o ícone de voltar
+        backgroundColor: _showSearchBar ? Colors.white : Color(0xFF011C2E),
+        title: _showSearchBar
+            ? Container(
+                height: kToolbarHeight,
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(30),
+                ),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: TextField(
+                        controller: _searchController,
+                        decoration: InputDecoration(
+                          hintText: 'Pesquisar',
+                          border: InputBorder.none,
+                          contentPadding:
+                              const EdgeInsets.symmetric(horizontal: 16),
                         ),
+                        onChanged: (value) {
+                          // TODO Implementar lógica da pesquisa
+                        },
                       ),
-                      if (_showSearchBar)
-                        IconButton(
-                          icon: Icon(Icons.close),
-                          color: Colors.black,
-                          onPressed: () {
-                            setState(() {
-                              _showSearchBar = false;
-                              _searchController.clear();
-                            });
-                          },
-                        ),
-                    ],
-                  ),
-                )
-              : Text('Notifications'),
-          actions: [
-            if (!_showSearchBar)
-              IconButton(
-                icon: Icon(Icons.filter_alt),
-                onPressed: () {
-                  setState(() {
-                    _showSearchBar = !_showSearchBar;
-                  });
-                },
-              ),
-            SizedBox(width: 16),
-          ],
-        ),
-        body: ListView.builder(
-          itemCount: notifications.length,
-          itemBuilder: (context, index) {
-            return ListTile(
-              title: Text(notifications[index]),
-              onTap: () {
-                _showCustomNotification(context, notifications[index]);
+                    ),
+                    if (_showSearchBar)
+                      IconButton(
+                        icon: Icon(Icons.close),
+                        color: Colors.black,
+                        onPressed: () {
+                          setState(() {
+                            _showSearchBar = false;
+                            _searchController.clear();
+                          });
+                        },
+                      ),
+                  ],
+                ),
+              )
+            : Text('Notifications'),
+        actions: [
+          if (!_showSearchBar)
+            IconButton(
+              icon: Icon(Icons.filter_alt),
+              onPressed: () {
+                setState(() {
+                  _showSearchBar = !_showSearchBar;
+                });
               },
-            );
-          },
-        ),
+            ),
+          SizedBox(width: 16),
+        ],
+      ),
+      body: ListView.builder(
+        itemCount: notifications.length,
+        itemBuilder: (context, index) {
+          return ListTile(
+            title: Text(notifications[index]),
+            onTap: () {
+              _showCustomNotification(context, notifications[index]);
+            },
+          );
+        },
       ),
     );
   }

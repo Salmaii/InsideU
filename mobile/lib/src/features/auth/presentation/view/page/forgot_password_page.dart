@@ -15,6 +15,7 @@ class ForgotPasswordPage extends StatefulWidget {
 
 class _ForgotPasswordPageState
     extends ModularState<ForgotPasswordPage, ForgotPasswordViewModel> {
+  late ThemeData _theme;
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   Widget get _loadingIndicator => Visibility(
@@ -26,7 +27,7 @@ class _ForgotPasswordPageState
 
   Widget get _email => widget.createFormField(
         title: 'email'.i18n(),
-        theme: Theme.of(context),
+        theme: _theme,
         keyboardType: TextInputType.emailAddress,
         textInputAction: TextInputAction.next,
         hint: 'email_hint'.i18n(),
@@ -97,16 +98,11 @@ class _ForgotPasswordPageState
 
   @override
   Widget build(BuildContext context) {
-    final _theme = Theme.of(context).copyWith(
-      scaffoldBackgroundColor: getTheme().scaffoldBackgroundColor,
-      appBarTheme: AppBarTheme(
-        backgroundColor: getTheme().primaryColor,
-      ),
-    );
-
+    _theme = Theme.of(context);
     return Scaffold(
       key: _scaffoldKey,
       appBar: AppBar(
+        backgroundColor: AppColors.primary,
         centerTitle: true,
         title: const Text('Password Recovery'),
         leading: IconButton(

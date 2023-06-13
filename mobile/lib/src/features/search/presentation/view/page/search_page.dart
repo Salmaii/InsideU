@@ -16,54 +16,57 @@ class _SearchPageState extends State<SearchPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor:
-            _showSearchBar ? Colors.white : const Color(0xFF011C2E),
-        title: !_showSearchBar
-            ? const Text(
-                'Search',
-                style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
+        automaticallyImplyLeading: false, // Remover o ícone de voltar
+        backgroundColor: _showSearchBar ? Colors.white : Color(0xFF011C2E),
+        title: _showSearchBar
+            ? Container(
+                height: kToolbarHeight,
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(30),
+                ),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: TextField(
+                        controller: _searchController,
+                        decoration: InputDecoration(
+                          hintText: 'Pesquisar',
+                          border: InputBorder.none,
+                          contentPadding:
+                              const EdgeInsets.symmetric(horizontal: 16),
+                        ),
+                        onChanged: (value) {
+                          // TODO Implementar lógica da pesquisa
+                        },
+                      ),
+                    ),
+                    if (_showSearchBar)
+                      IconButton(
+                        icon: Icon(Icons.close),
+                        color: Colors.black,
+                        onPressed: () {
+                          setState(() {
+                            _showSearchBar = false;
+                            _searchController.clear();
+                          });
+                        },
+                      ),
+                  ],
                 ),
               )
-            : TextField(
-                controller: _searchController,
-                decoration: const InputDecoration(
-                  hintText: 'Search',
-                  border: InputBorder.none,
-                ),
-                onChanged: (value) {
-                  // TODO Implementar aqui a lógica de pesquisa
-                },
-                style: const TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black,
-                ),
-              ),
-        leading: Container(),
-        centerTitle: false,
+            : Text('Search'),
         actions: [
-          if (_showSearchBar)
-            IconButton(
-              icon: const Icon(Icons.close),
-              color: Colors.black,
-              onPressed: () {
-                setState(() {
-                  _showSearchBar = false;
-                  _searchController.clear();
-                });
-              },
-            ),
           if (!_showSearchBar)
             IconButton(
-              icon: const Icon(Icons.search),
+              icon: Icon(Icons.search),
               onPressed: () {
                 setState(() {
                   _showSearchBar = !_showSearchBar;
                 });
               },
             ),
+          SizedBox(width: 16),
         ],
       ),
       body: Column(

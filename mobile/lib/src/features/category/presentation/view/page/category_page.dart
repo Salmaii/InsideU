@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:InLaw/src/theme.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
 class CategoryPage extends StatelessWidget {
@@ -9,9 +8,11 @@ class CategoryPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: getTheme(),
-      home: Scaffold(
+    return Container(
+      decoration: BoxDecoration(
+        color: Colors.white,
+      ),
+      child: Scaffold(
         appBar: AppBar(
           title: Text(titulo),
           leading: IconButton(

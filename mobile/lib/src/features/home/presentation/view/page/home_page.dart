@@ -26,7 +26,7 @@ class _HomePageState extends State<HomePage> {
   Widget _getPage(int index) {
     switch (index) {
       case 0:
-        return const HomePageContents();
+        return HomePageContents();
       case 1:
         return SearchPage();
       case 2:
@@ -34,7 +34,7 @@ class _HomePageState extends State<HomePage> {
       case 3:
         return ProfilePage();
       default:
-        return const HomePageContents();
+        return HomePageContents();
     }
   }
 
