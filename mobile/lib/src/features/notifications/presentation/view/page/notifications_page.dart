@@ -37,11 +37,10 @@ class _NotificationPageState extends State<NotificationPage> {
                     Expanded(
                       child: TextField(
                         controller: _searchController,
-                        decoration: InputDecoration(
+                        decoration: const InputDecoration(
                           hintText: 'Pesquisar',
                           border: InputBorder.none,
-                          contentPadding:
-                              const EdgeInsets.symmetric(horizontal: 16),
+                          contentPadding: EdgeInsets.symmetric(horizontal: 16),
                         ),
                         onChanged: (value) {
                           // TODO Implementar lógica da pesquisa
