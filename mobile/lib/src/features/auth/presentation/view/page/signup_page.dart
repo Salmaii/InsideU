@@ -72,8 +72,6 @@ class _SignUpPageState extends ModularState<SignUpPage, SignUpViewModel> {
               ? null
               : () {
                   store.signUp();
-                  // Test Function
-                  // Navigator.pushNamed(context, "/home/");
                 },
           child: Text('signup'.i18n()),
         ),
@@ -96,10 +94,9 @@ class _SignUpPageState extends ModularState<SignUpPage, SignUpViewModel> {
 
   Widget get _errorMessage => Center(
         child: Text(
-          store.error.signUp ??
-              '', // Verifica se o valor é nulo e trata como uma string vazia
+          store.error.signUp ?? '',
           style: const TextStyle(
-            color: Colors.red, // Estilo de texto vermelho para indicar um erro
+            color: Colors.red,
           ),
         ),
       );
@@ -110,7 +107,6 @@ class _SignUpPageState extends ModularState<SignUpPage, SignUpViewModel> {
         mainAxisSize: MainAxisSize.max,
         children: [
           const SizedBox(height: 5),
-          // _pageName,
           _errorMessage,
           _name,
           _email,

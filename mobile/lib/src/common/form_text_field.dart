@@ -55,7 +55,6 @@ extension CoreFormTextField on Widget {
             enabled: enabled,
             decoration: InputDecoration(
               contentPadding: const EdgeInsets.fromLTRB(15, 15, 15, 10),
-              //constraints: const BoxConstraints(maxHeight: 48),
               isDense: true,
               hintText: hint,
               errorText: errorText,

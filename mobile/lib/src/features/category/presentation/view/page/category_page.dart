@@ -22,7 +22,7 @@ class CategoryPage extends StatelessWidget {
             },
           ),
         ),
-        // Restante do conteúdo da página
+        // TODO Restante do conteúdo da página
       ),
     );
   }

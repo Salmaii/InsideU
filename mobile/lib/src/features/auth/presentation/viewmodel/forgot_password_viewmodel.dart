@@ -53,7 +53,6 @@ abstract class _ForgotPasswordViewModelBase with Store {
           label: 'Fechar',
           onPressed: () {
             ScaffoldMessenger.of(context).hideCurrentSnackBar();
-            // Modular.to.pop();
           },
         ),
       ),

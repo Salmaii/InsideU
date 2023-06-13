@@ -15,7 +15,7 @@ class SignUpRepository implements ISignUp {
         email: signUpUser.email,
         password: signUpUser.password!,
       );
-      // Add username in FirebaseAuth db
+      // TODO Add username in FirebaseAuth db
       FirebaseAuth.instance.currentUser?.updateDisplayName(signUpUser.name);
 
       final token = await userCredential.user!.getIdToken();

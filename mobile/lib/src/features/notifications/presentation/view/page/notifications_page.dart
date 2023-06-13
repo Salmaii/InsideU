@@ -34,13 +34,14 @@ class _NotificationPageState extends State<NotificationPage> {
                 ),
                 child: Row(
                   children: [
+                    const Icon(Icons.search, color: Colors.grey),
                     Expanded(
                       child: TextField(
                         controller: _searchController,
                         decoration: const InputDecoration(
                           hintText: 'Pesquisar',
                           border: InputBorder.none,
-                          contentPadding: EdgeInsets.symmetric(horizontal: 16),
+                          contentPadding: EdgeInsets.symmetric(horizontal: 8),
                         ),
                         onChanged: (value) {
                           // TODO Implementar lógica da pesquisa

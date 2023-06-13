@@ -18,6 +18,8 @@ class HomePageContents extends StatelessWidget {
     'Other'
   ];
 
+  HomePageContents({Key? key}) : super(key: key);
+
   void _navigateToCategory(BuildContext context, String categoryName) {
     Modular.to.pushNamed('/home/category', arguments: categoryName);
   }
@@ -60,16 +62,31 @@ class HomePageContents extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.white,
         automaticallyImplyLeading: false, // Remove o ícone de voltar
         centerTitle: true,
-        title: const Text('Categories'),
-      ),
-      body: Container(
-        height: MediaQuery.of(context).size.height * 0.88,
-        decoration: const BoxDecoration(
-          color: Color.fromARGB(255, 242, 242, 242),
+        title: Image.asset(
+          'lib/assets/images/nameLogoNoBackground.png',
+          height: 32,
         ),
-        child: _buildCategoryList(context),
+      ),
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(20),
+            child: Text(
+              'Categorias',
+              style: TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+          Expanded(
+            child: _buildCategoryList(context),
+          ),
+        ],
       ),
     );
   }

@@ -12,17 +12,21 @@ class ProfilePage extends StatefulWidget {
 class _ProfilePageState extends ModularState<ProfilePage, LoginViewModel> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
-  // class _LoginPageState extends ModularState<LoginPage, LoginViewModel> {
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       key: _scaffoldKey,
       appBar: AppBar(
         automaticallyImplyLeading: false, // Remover o ícone de voltar
-        backgroundColor: Color(0xFF011C2E),
         centerTitle: false,
         actions: [
+          IconButton(
+            icon: const Icon(Icons.edit),
+            onPressed: () {
+              // TODO Abrir a página de edição de perfil
+              Navigator.pushNamed(context, '/edit_profile');
+            },
+          ),
           IconButton(
             icon: const Icon(Icons.menu),
             onPressed: () {
@@ -71,8 +75,7 @@ class _ProfilePageState extends ModularState<ProfilePage, LoginViewModel> {
               onTap: store.isLoading
                   ? null
                   : () {
-                      var validateLogin = store.logout();
-                      // Navigator.pushNamed(context, "/home/");
+                      var logout = store.logout();
                     },
             ),
           ],
@@ -86,6 +89,7 @@ class _ProfilePageState extends ModularState<ProfilePage, LoginViewModel> {
             const CircleAvatar(
               radius: 75,
               backgroundColor: Colors.amberAccent,
+              // TODO Profile image
               // backgroundImage: AssetImage('assets/images/logo.png'),
             ),
             const SizedBox(height: 16),

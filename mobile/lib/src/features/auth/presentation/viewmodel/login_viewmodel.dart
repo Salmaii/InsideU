@@ -59,12 +59,7 @@ abstract class _LoginViewModelBase with Store {
 
   void logout() async {
     clear();
-    // Adicione a lógica do logout aqui, como limpar os dados de autenticação, fazer logout do usuário, etc.
-    // Por exemplo, se você estiver usando Firebase Authentication, pode chamar o método `signOut()`:
-
     await FirebaseAuth.instance.signOut();
-
-    // Redirecione o usuário para a tela de login após fazer logout:
     Modular.to.pushReplacementNamed('/login');
   }
 

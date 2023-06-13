@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-// import 'package:flutter_modular/flutter_modular.dart';
-
 import 'package:InLaw/src/features/profile/presentation/view/page/profile_page.dart';
 import 'package:InLaw/src/features/notifications/presentation/view/page/notifications_page.dart';
 import 'package:InLaw/src/features/search/presentation/view/page/search_page.dart';

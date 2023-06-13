@@ -66,12 +66,13 @@ class _LoginPageState extends ModularState<LoginPage, LoginViewModel> {
           onPressed: store.isLoading
               ? null
               : () {
+                  // TODO Utilizar função correta
                   //Correct Function !
                   // var validateLogin = store.login();
                   // Mail: inside.u.dev@gmail.com
                   // password InsideU@dev2023
 
-                  // Test Function
+                  // Função de teste
                   Navigator.pushNamed(context, "/home/");
                 },
           child: Text('login'.i18n()),
@@ -136,10 +137,9 @@ class _LoginPageState extends ModularState<LoginPage, LoginViewModel> {
 
   Widget get _errorMessage => Center(
         child: Text(
-          store.error.login ??
-              '', // Verifica se o valor é nulo e trata como uma string vazia
+          store.error.login ?? '',
           style: const TextStyle(
-            color: Colors.red, // Estilo de texto vermelho para indicar um erro
+            color: Colors.red,
           ),
         ),
       );

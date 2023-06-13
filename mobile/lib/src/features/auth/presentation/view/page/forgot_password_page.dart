@@ -74,10 +74,9 @@ class _ForgotPasswordPageState
 
   Widget get _errorMessage => Center(
         child: Text(
-          store.error.forgot_password ??
-              '', // Verifica se o valor é nulo e trata como uma string vazia
+          store.error.forgot_password ?? '',
           style: const TextStyle(
-            color: Colors.red, // Estilo de texto vermelho para indicar um erro
+            color: Colors.red,
           ),
         ),
       );

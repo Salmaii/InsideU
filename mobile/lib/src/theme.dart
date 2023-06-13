@@ -17,7 +17,6 @@ OutlinedButtonThemeData get _outlineButtonTheme => OutlinedButtonThemeData(
 
 ThemeData getTheme() {
   final theme = ThemeData.light().copyWith(
-      // scaffoldBackgroundColor: AppColors.primary,
       scaffoldBackgroundColor: Colors.white,
       outlinedButtonTheme: _outlineButtonTheme,
       colorScheme: const ColorScheme.light()
