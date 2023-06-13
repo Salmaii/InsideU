@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:localization/localization.dart';
-import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:lottie/lottie.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 
 class OnboardingPage extends StatefulWidget {
   const OnboardingPage({Key? key}) : super(key: key);
@@ -40,7 +40,9 @@ class _OnboardingPageState extends State<OnboardingPage> {
   }
 
   void initialization() async {
-    FlutterNativeSplash.remove();
+    WidgetsBinding.instance?.addPostFrameCallback((_) {
+      FlutterNativeSplash.remove();
+    });
   }
 
   @override
@@ -67,6 +69,16 @@ class _OnboardingPageState extends State<OnboardingPage> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
+                if (_currentPage == 0)
+                  ElevatedButton(
+                    onPressed: () {
+                      Modular.to.pushReplacementNamed('/login/');
+                    },
+                    child: Text(
+                      'Pular'.i18n(),
+                      style: TextStyle(fontSize: 18.0),
+                    ),
+                  ),
                 if (_currentPage != 0)
                   ElevatedButton(
                     onPressed: () {
@@ -76,7 +88,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
                       );
                     },
                     child: Text(
-                      'Back'.i18n(),
+                      'Voltar'.i18n(),
                       style: TextStyle(fontSize: 18.0),
                     ),
                   ),
@@ -89,7 +101,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
                       );
                     },
                     child: Text(
-                      'Next'.i18n(),
+                      'Próximo'.i18n(),
                       style: TextStyle(fontSize: 18.0),
                     ),
                   ),
