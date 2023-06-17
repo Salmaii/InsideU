@@ -68,12 +68,12 @@ class _LoginPageState extends ModularState<LoginPage, LoginViewModel> {
               : () {
                   // TODO Utilizar função correta
                   //Correct Function !
-                  var validateLogin = store.login();
+                  // var validateLogin = store.login();
                   // Mail: inside.u.dev@gmail.com
                   // password InsideU@dev2023
 
                   // Função de teste
-                  // Modular.to.pushReplacementNamed('/home/');
+                  Modular.to.pushReplacementNamed('/home/');
                 },
           child: Text('login'.i18n()),
         ),
