@@ -50,7 +50,7 @@ abstract class _SignUpViewModelBase with Store {
       isLoading = true;
       try {
         await _usecase.signUp(name, email, password);
-        Modular.to.pushReplacementNamed('/home/');
+        Modular.to.pushReplacementNamed('/login/');
       } on WeakPasswordException {
         error.password = 'A senha fornecida é muito fraca.';
       } on EmailAlreadyInUseException {
