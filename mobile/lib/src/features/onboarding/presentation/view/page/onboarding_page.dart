@@ -40,7 +40,8 @@ class _OnboardingPageState extends State<OnboardingPage> {
   }
 
   void initialization() async {
-    WidgetsBinding.instance?.addPostFrameCallback((_) {
+    // WidgetsBinding.instance?.addPostFrameCallback((_) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
       FlutterNativeSplash.remove();
     });
   }
