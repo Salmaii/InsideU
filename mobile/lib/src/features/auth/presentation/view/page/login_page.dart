@@ -65,15 +65,11 @@ class _LoginPageState extends ModularState<LoginPage, LoginViewModel> {
           ),
           onPressed: store.isLoading
               ? null
-              : () {
-                  // TODO Utilizar função correta
-                  // Correct Function !
-                  // var validateLogin = store.login();
-                  // Mail: inside.u.dev@gmail.com
-                  // password InsideU@dev2023
-
-                  // Função de teste
-                  Modular.to.pushReplacementNamed('/home/');
+              : () async {
+                  Future<bool> success = store.login();
+                  if (await success) {
+                    Modular.to.pushReplacementNamed('/home/');
+                  }
                 },
           child: Text('login'.i18n()),
         ),
