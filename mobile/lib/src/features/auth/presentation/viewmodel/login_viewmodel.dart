@@ -32,7 +32,7 @@ abstract class _LoginViewModelBase with Store {
     error.password = _usecase.validatePassword(password, email);
   }
 
-  void login() async {
+  Future<bool> login() async {
     error.clear();
 
     validateEmail();
@@ -42,18 +42,24 @@ abstract class _LoginViewModelBase with Store {
       isLoading = true;
       try {
         await _usecase.login(email, password);
-        Modular.to.pushReplacementNamed('/home/');
+        return true;
       } on UserNotFoundException catch (e) {
         error.login = 'Username not found';
+        return false;
       } on InvalidCredentialsException catch (e) {
         error.login = 'Invalid Credentials';
+        return false;
       } on Exception catch (e) {
         error.login = 'Something went wrong';
+        return false;
       } on UnimplementedError {
         error.login = 'Função não implementada!';
+        return false;
       } finally {
         isLoading = false;
       }
+    } else {
+      return false;
     }
   }
 
