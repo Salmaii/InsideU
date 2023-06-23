@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+
 import 'package:InLaw/src/features/profile/presentation/view/page/profile_page.dart';
-import 'package:InLaw/src/features/notifications/presentation/view/page/notifications_page.dart';
-import 'package:InLaw/src/features/search/presentation/view/page/search_page.dart';
+import 'package:InLaw/src/features/cases/view/page/cases_page.dart';
 
 import 'home_page_contents.dart';
 
@@ -26,10 +26,8 @@ class _HomePageState extends State<HomePage> {
       case 0:
         return HomePageContents();
       case 1:
-        return SearchPage();
+        return CaseListPage();
       case 2:
-        return NotificationPage();
-      case 3:
         return ProfilePage();
       default:
         return HomePageContents();
@@ -46,19 +44,15 @@ class _HomePageState extends State<HomePage> {
         items: const [
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
-            label: 'Home',
+            label: 'Início',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.search),
-            label: 'Search',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.notifications),
-            label: 'Notifications',
+            icon: Icon(Icons.cases),
+            label: 'Meus Casos',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.person),
-            label: 'Profile',
+            label: 'Perfil',
           ),
         ],
         currentIndex: _currentPageIndex,

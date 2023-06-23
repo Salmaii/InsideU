@@ -5,8 +5,7 @@ import '../auth/domain/repository/login_interface.dart';
 import 'presentation/view/page/home_page.dart';
 
 import 'package:InLaw/src/features/profile/presentation/view/page/profile_page.dart';
-import 'package:InLaw/src/features/notifications/presentation/view/page/notifications_page.dart';
-import 'package:InLaw/src/features/search/presentation/view/page/search_page.dart';
+import 'package:InLaw/src/features/cases/view/page/cases_page.dart';
 
 import '../auth/presentation/viewmodel/login_viewmodel.dart';
 import '../auth/domain/usecase/login_usecase.dart';
@@ -24,9 +23,8 @@ class HomeModule extends Module {
   @override
   List<ModularRoute> get routes => [
         ChildRoute('/', child: (_, __) => const HomePage()),
-        ChildRoute('/search', child: (_, __) => SearchPage()),
-        ChildRoute('/notifications', child: (_, __) => NotificationPage()),
         ChildRoute('/profile', child: (_, __) => ProfilePage()),
+        ChildRoute('/cases', child: (_, __) => CaseListPage()),
         ModuleRoute('/category/', module: CategoryModule()),
       ];
 }
