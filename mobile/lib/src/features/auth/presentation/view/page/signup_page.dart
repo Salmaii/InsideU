@@ -15,6 +15,7 @@ class SignUpPage extends StatefulWidget {
 
 class _SignUpPageState extends ModularState<SignUpPage, SignUpViewModel> {
   late ThemeData _theme;
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   Widget get _loadingIndicator => Visibility(
         child: const LinearProgressIndicator(
@@ -70,8 +71,12 @@ class _SignUpPageState extends ModularState<SignUpPage, SignUpViewModel> {
           ),
           onPressed: store.isLoading
               ? null
-              : () {
-                  store.signUp();
+              : () async {
+                  Future<bool> success = store.signUp();
+                  if (await success) {
+                    _showSnackBar('User created successfully');
+                    Modular.to.pushReplacementNamed('/login/');
+                  }
                 },
           child: Text('signup'.i18n()),
         ),
@@ -117,10 +122,17 @@ class _SignUpPageState extends ModularState<SignUpPage, SignUpViewModel> {
         ],
       );
 
+  void _showSnackBar(String message) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text(message)),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     _theme = Theme.of(context);
     return Scaffold(
+      key: _scaffoldKey,
       appBar: AppBar(
         centerTitle: true,
         title: const Text('Sign Up'),

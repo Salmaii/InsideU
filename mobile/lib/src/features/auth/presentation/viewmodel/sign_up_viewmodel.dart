@@ -39,7 +39,7 @@ abstract class _SignUpViewModelBase with Store {
     error.password = _usecase.validatePassword(password);
   }
 
-  void signUp() async {
+  Future<bool> signUp() async {
     error.clear();
 
     validateName();
@@ -50,16 +50,21 @@ abstract class _SignUpViewModelBase with Store {
       isLoading = true;
       try {
         await _usecase.signUp(name, email, password);
-        Modular.to.pushReplacementNamed('/login/');
+        return true;
       } on WeakPasswordException {
         error.password = 'A senha fornecida é muito fraca.';
+        return false;
       } on EmailAlreadyInUseException {
         error.email = 'A conta já existe para esse e-mail.';
+        return false;
       } on Exception catch (e) {
         error.signUp = 'Ocorreu um erro: $e';
+        return false;
       } finally {
         isLoading = false;
       }
+    } else {
+      return false;
     }
   }
 }
