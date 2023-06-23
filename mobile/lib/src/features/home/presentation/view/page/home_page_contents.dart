@@ -1,23 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class HomePageContents extends StatelessWidget {
-  final List<String> categories = [
-    'Criminal',
-    'Civil',
-    'Constitutional',
-    'Labor',
-    'Business',
-    'Environmental',
-    'Intellectual Property',
-    'Family',
-    'International',
-    'Tax',
-    'Real Estate',
-    'Information Technology',
-    'Other'
-  ];
-
   HomePageContents({Key? key}) : super(key: key);
 
   void _navigateToCategory(BuildContext context, String categoryName) {
@@ -45,7 +30,7 @@ class HomePageContents extends StatelessWidget {
     );
   }
 
-  Widget _buildCategoryList(BuildContext context) {
+  Widget _buildCategoryList(BuildContext context, List<String> categories) {
     return Padding(
       padding: const EdgeInsets.all(20),
       child: Wrap(
@@ -63,7 +48,7 @@ class HomePageContents extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
-        automaticallyImplyLeading: false, // Remove o ícone de voltar
+        automaticallyImplyLeading: false,
         centerTitle: true,
         title: Image.asset(
           'lib/assets/images/nameLogoNoBackground.png',
@@ -84,7 +69,23 @@ class HomePageContents extends StatelessWidget {
             ),
           ),
           Expanded(
-            child: _buildCategoryList(context),
+            child: FutureBuilder<QuerySnapshot>(
+              future: FirebaseFirestore.instance.collection('categories').get(),
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return Center(child: CircularProgressIndicator());
+                } else if (snapshot.hasError) {
+                  return Center(child: Text('Error: ${snapshot.error}'));
+                } else if (!snapshot.hasData) {
+                  return Center(child: Text('No data found'));
+                }
+                List<String> categories = snapshot.data!.docs.map((doc) {
+                  return doc.get('name') as String;
+                }).toList();
+
+                return _buildCategoryList(context, categories);
+              },
+            ),
           ),
         ],
       ),
