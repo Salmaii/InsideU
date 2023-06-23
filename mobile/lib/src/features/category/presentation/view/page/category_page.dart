@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 
 class CategoryPage extends StatefulWidget {
   final String titulo;
@@ -10,7 +13,11 @@ class CategoryPage extends StatefulWidget {
 }
 
 class _CategoryPageState extends State<CategoryPage> {
-  String categoryDescription = '';
+  String categoriaDescricao = '';
+  IconData? categoriaIcone;
+  TextEditingController tituloController = TextEditingController();
+  TextEditingController descricaoController = TextEditingController();
+  bool isButtonDisabled = true;
 
   @override
   void initState() {
@@ -19,15 +26,53 @@ class _CategoryPageState extends State<CategoryPage> {
   }
 
   void buscarDescricaoCategoria() {
-    // Aqui você pode implementar a lógica para buscar a descrição da categoria no Firestore do Firebase
-    // Usando o widget.titulo para realizar a busca
-    // Exemplo:
-    // Firestore.instance.collection('categorias').document(widget.titulo).get().then((snapshot) {
-    //   setState(() {
-    //     categoryDescription = snapshot.data['descricao'];
-    //   });
-    // });
-    // Lembre-se de importar o pacote necessário para acessar o Firestore
+    FirebaseFirestore.instance
+        .collection('categories')
+        .doc(widget.titulo)
+        .get()
+        .then((snapshot) {
+      setState(() {
+        categoriaDescricao = snapshot.data()!['description'];
+        categoriaIcone = IconsHelper.getIconData(snapshot.data()!['icon']);
+      });
+    });
+  }
+
+  void enviarDadosParaFirestore() {
+    final currentUser = FirebaseAuth.instance.currentUser;
+    if (currentUser != null) {
+      final userId = currentUser.uid;
+      final titulo = tituloController.text;
+      final descricao = descricaoController.text;
+      final categoria = widget.titulo;
+
+      final caseData = {
+        'userId': userId,
+        'titulo': titulo,
+        'descricao': descricao,
+        'categoria': categoria,
+        'status': 'aberto',
+        'data': DateTime.now(),
+      };
+
+      FirebaseFirestore.instance.collection('cases').add(caseData);
+    }
+  }
+
+  void _showSnackbar(BuildContext context) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text('Caso enviado com sucesso!'),
+      ),
+    );
+  }
+
+  void validateFields() {
+    final titulo = tituloController.text;
+    final descricao = descricaoController.text;
+    setState(() {
+      isButtonDisabled = titulo.isEmpty || descricao.isEmpty;
+    });
   }
 
   @override
@@ -41,12 +86,25 @@ class _CategoryPageState extends State<CategoryPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              categoryDescription,
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 16,
-              ),
+            Row(
+              children: [
+                Icon(
+                  categoriaIcone,
+                  size: 48,
+                  color: Colors.grey[400],
+                ),
+                SizedBox(width: 16),
+                Expanded(
+                  child: Text(
+                    categoriaDescricao,
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 16,
+                      color: Colors.grey[400],
+                    ),
+                  ),
+                ),
+              ],
             ),
             SizedBox(height: 20),
             Text(
@@ -57,27 +115,86 @@ class _CategoryPageState extends State<CategoryPage> {
               ),
             ),
             SizedBox(height: 10),
-            TextFormField(
-              decoration: InputDecoration(
-                labelText: 'Caso',
+            Expanded(
+              child: Column(
+                children: [
+                  TextFormField(
+                    controller: tituloController,
+                    onChanged: (value) {
+                      validateFields();
+                    },
+                    decoration: InputDecoration(
+                      labelText: 'Título do Caso',
+                      border: OutlineInputBorder(),
+                    ),
+                  ),
+                  SizedBox(height: 10),
+                  TextField(
+                    controller: descricaoController,
+                    onChanged: (value) {
+                      validateFields();
+                    },
+                    decoration: InputDecoration(
+                      labelText: 'Descrição do Caso',
+                      border: OutlineInputBorder(),
+                    ),
+                    maxLines: 10,
+                  ),
+                  SizedBox(height: 20),
+                  Align(
+                    alignment: Alignment.centerRight,
+                    child: ElevatedButton(
+                      onPressed: isButtonDisabled
+                          ? null
+                          : () {
+                              enviarDadosParaFirestore();
+                              _showSnackbar(context);
+                              Modular.to.pop();
+                            },
+                      child: Text('Enviar'),
+                    ),
+                  ),
+                ],
               ),
-            ),
-            SizedBox(height: 10),
-            TextFormField(
-              decoration: InputDecoration(
-                labelText: 'Anexos',
-              ),
-            ),
-            SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: () {
-                // Aqui você pode implementar a lógica para enviar a solicitação
-              },
-              child: Text('Enviar'),
             ),
           ],
         ),
       ),
     );
+  }
+}
+
+class IconsHelper {
+  static IconData? getIconData(String iconName) {
+    switch (iconName) {
+      case 'security':
+        return Icons.security;
+      case 'gavel':
+        return Icons.gavel;
+      case 'account_balance':
+        return Icons.account_balance;
+      case 'work':
+        return Icons.work;
+      case 'business':
+        return Icons.business;
+      case 'eco':
+        return Icons.eco;
+      case 'create':
+        return Icons.create;
+      case 'family_restroom':
+        return Icons.family_restroom;
+      case 'public':
+        return Icons.public;
+      case 'attach_money':
+        return Icons.attach_money;
+      case 'home':
+        return Icons.home;
+      case 'computer':
+        return Icons.computer;
+      case 'category':
+        return Icons.category;
+      default:
+        return Icons.help;
+    }
   }
 }
