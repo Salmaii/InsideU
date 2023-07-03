@@ -6,7 +6,7 @@
 
 ## Usage 
 
-To run the app, first start the `/mobile/lib/src/services/send_categories.dart` to populate the category database.
+To run the app, first start the `mobile/lib/src/services/send_categories.dart` to populate the category database.
 
 ## Links
 
