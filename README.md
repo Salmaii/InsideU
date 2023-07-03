@@ -4,6 +4,10 @@
     <img src="https://github.com/Salmaii/InsideU/blob/main/mobile/lib/assets/images/named.png" alt="InLaw Logo" />
   </p>
 
+## Usage 
+
+To run the app, first start the `/mobile/lib/src/services/send_categories.dart` to populate the category database.
+
 ## Links
 
 - [Figma](https://www.figma.com/file/WIthk7lpx8GnDloa44ECti/InsideU-In-Law?type=design&node-id=0%3A1&t=mvS6FnBJEVuWDN2m-1)
