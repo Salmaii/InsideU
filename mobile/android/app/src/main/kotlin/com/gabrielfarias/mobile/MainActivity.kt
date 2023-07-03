@@ -1,4 +1,4 @@
-package com.example.InLaw
+package com.gabrielfarias.mobile
 
 import io.flutter.embedding.android.FlutterActivity
 
