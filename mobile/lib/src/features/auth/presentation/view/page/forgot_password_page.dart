@@ -132,8 +132,7 @@ class _ForgotPasswordPageState
         ),
         body: SingleChildScrollView(
           child: Container(
-            width:
-                MediaQuery.of(context).size.width, // Definindo a largura máxima
+            width: MediaQuery.of(context).size.width,
             padding: const EdgeInsets.symmetric(horizontal: 5),
             color: Colors.white,
             child: Column(

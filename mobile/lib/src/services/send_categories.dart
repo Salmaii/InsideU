@@ -5,7 +5,6 @@ Future<bool> checkCategories() async {
     QuerySnapshot snapshot =
         await FirebaseFirestore.instance.collection('categories').get();
 
-    // Verificar se há documentos na coleção
     if (snapshot.docs.isNotEmpty) {
       return true;
     } else {

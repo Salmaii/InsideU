@@ -119,13 +119,9 @@ class _OnboardingPageState extends State<OnboardingPage> {
                     ),
                 ],
               ),
-              const SizedBox(
-                  height:
-                      16.0), // Adiciona um espaçamento entre os botões e os indicadores de página
+              const SizedBox(height: 16.0),
               Container(
-                margin: EdgeInsets.only(
-                    bottom:
-                        16.0), // Define um espaçamento inferior para os indicadores
+                margin: EdgeInsets.only(bottom: 16.0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: buildPageIndicator(),
@@ -149,7 +145,6 @@ class _OnboardingPageState extends State<OnboardingPage> {
             width: 150,
             height: 150,
           ),
-          // SizedBox(height: 32.0),
           Expanded(
             child: Container(
               alignment: Alignment.center,
@@ -161,7 +156,6 @@ class _OnboardingPageState extends State<OnboardingPage> {
               ),
             ),
           ),
-          // SizedBox(height: 48.0),
           Text(
             onboardingData[index]['text'],
             textAlign: TextAlign.center,
