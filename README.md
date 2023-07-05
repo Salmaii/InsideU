@@ -22,4 +22,4 @@ Dont forget to add your `firebase_options.dart` to application directory: `Insid
 | Gabriel Salmai Camargo Farias | 1922130017 |
 
 ## Languages
-[![My Skills](https://skillicons.dev/icons?i=dart,cmake,html,ruby)](https://skillicons.dev)
+[![Programming Languages](https://skillicons.dev/icons?i=dart,cmake,html,ruby)](https://skillicons.dev)
