@@ -1,11 +1,23 @@
-import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_core/firebase_core.dart';
 
-void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
+Future<bool> checkCategories() async {
+  try {
+    QuerySnapshot snapshot =
+        await FirebaseFirestore.instance.collection('categories').get();
 
+    // Verificar se há documentos na coleção
+    if (snapshot.docs.isNotEmpty) {
+      return true;
+    } else {
+      return false;
+    }
+  } catch (e) {
+    print('Erro ao verificar categorias: $e');
+    return false;
+  }
+}
+
+Future<void> sendCategories() async {
   final List<Map<String, dynamic>> categories = [
     {
       'name': 'Criminal',
