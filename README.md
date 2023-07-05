@@ -4,6 +4,10 @@
     <img src="https://github.com/Salmaii/InsideU/blob/main/mobile/lib/assets/images/named.png" alt="InLaw Logo" />
   </p>
 
+## Usage 
+
+Dont forget to add your `firebase_options.dart` to application directory: `InsideU/mobile/lib/firebase_options.dart`
+
 ## Links
 
 - [Figma](https://www.figma.com/file/WIthk7lpx8GnDloa44ECti/InsideU-In-Law?type=design&node-id=0%3A1&t=mvS6FnBJEVuWDN2m-1)
