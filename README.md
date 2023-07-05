@@ -6,7 +6,7 @@
 
 ## Usage 
 
-To run the app, first start the `mobile/lib/src/services/send_categories.dart` to populate the category database.
+Dont forget to add your `firebase_options.dart` to application directory: `InsideU/mobile/lib/firebase_options.dart`
 
 ## Links
 
