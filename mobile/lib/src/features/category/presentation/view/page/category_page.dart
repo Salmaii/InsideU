@@ -81,42 +81,42 @@ class _CategoryPageState extends State<CategoryPage> {
       appBar: AppBar(
         title: Text(widget.titulo),
       ),
-      body: Padding(
-        padding: EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              children: [
-                Icon(
-                  categoriaIcone,
-                  size: 48,
-                  color: Colors.grey[400],
-                ),
-                SizedBox(width: 16),
-                Expanded(
-                  child: Text(
-                    categoriaDescricao,
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 16,
-                      color: Colors.grey[400],
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: EdgeInsets.all(16.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: [
+                  Icon(
+                    categoriaIcone,
+                    size: 48,
+                    color: Colors.grey[400],
+                  ),
+                  SizedBox(width: 16),
+                  Expanded(
+                    child: Text(
+                      categoriaDescricao,
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 16,
+                        color: Colors.grey[400],
+                      ),
                     ),
                   ),
-                ),
-              ],
-            ),
-            SizedBox(height: 20),
-            Text(
-              'Formulário de Solicitação:',
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 16,
+                ],
               ),
-            ),
-            SizedBox(height: 10),
-            Expanded(
-              child: Column(
+              SizedBox(height: 20),
+              Text(
+                'Formulário de Solicitação:',
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 16,
+                ),
+              ),
+              SizedBox(height: 10),
+              Column(
                 children: [
                   TextFormField(
                     controller: tituloController,
@@ -156,8 +156,8 @@ class _CategoryPageState extends State<CategoryPage> {
                   ),
                 ],
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

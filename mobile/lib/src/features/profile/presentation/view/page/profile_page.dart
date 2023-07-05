@@ -99,137 +99,132 @@ class _ProfilePageState extends ModularState<ProfilePage, LoginViewModel> {
           ],
         ),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: StreamBuilder<DocumentSnapshot>(
-          stream: _usersCollection.doc(user!.uid).snapshots(),
-          builder: (context, snapshot) {
-            if (snapshot.hasData) {
-              final profileData = snapshot.data!.data() as Map<String, dynamic>;
-              final casosAbertos = profileData['casos']
-                      ?.where((caso) => caso['status'] == 'aberto')
-                      .toList()
-                      ?.length ??
-                  0;
-              final casosFechados = profileData['casosFechados'] ?? 0;
-              final descricao = profileData['descricao'] ?? '';
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: StreamBuilder<DocumentSnapshot>(
+            stream: _usersCollection.doc(user!.uid).snapshots(),
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                final profileData =
+                    snapshot.data!.data() as Map<String, dynamic>;
+                final casosAbertos = profileData['casos']
+                        ?.where((caso) => caso['status'] == 'aberto')
+                        .toList()
+                        ?.length ??
+                    0;
+                final casosFechados = profileData['casosFechados'] ?? 0;
+                final descricao = profileData['descricao'] ?? '';
 
-              _currentDescricao = descricao;
+                _currentDescricao = descricao;
 
-              return Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Icon(
-                    Icons.account_circle,
-                    size: 150,
-                    color: Colors.amberAccent,
-                  ),
-                  const SizedBox(height: 16),
-                  Text(
-                    user?.displayName ?? '',
-                    style: TextStyle(
-                      fontSize: 24,
-                      fontWeight: FontWeight.bold,
+                return Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Icon(
+                      Icons.account_circle,
+                      size: 150,
+                      color: Colors.amberAccent,
                     ),
-                  ),
-                  const SizedBox(height: 8),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      Column(
-                        children: [
-                          Text(
-                            'Casos Abertos',
-                            style: TextStyle(fontSize: 18),
-                          ),
-                          SizedBox(height: 8),
-                          StreamBuilder<QuerySnapshot>(
-                            stream: _casesCollection
-                                .where('userId', isEqualTo: user.uid)
-                                .where('status', isEqualTo: 'aberto')
-                                .snapshots(),
-                            builder: (context, snapshot) {
-                              if (snapshot.hasData) {
-                                final openCases = snapshot.data!.docs;
-                                final casosAbertosCount = openCases.length;
-                                return Text(
-                                  casosAbertosCount.toString(),
-                                  style: TextStyle(
-                                    fontSize: 24,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                );
-                              } else {
-                                return CircularProgressIndicator();
-                              }
-                            },
-                          ),
-                        ],
-                      ),
-                      Column(
-                        children: [
-                          Text(
-                            'Casos Fechados',
-                            style: TextStyle(fontSize: 18),
-                          ),
-                          SizedBox(height: 8),
-                          Text(
-                            casosFechados.toString(),
-                            style: TextStyle(
-                              fontSize: 24,
-                              fontWeight: FontWeight.bold,
+                    const SizedBox(height: 16),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        Column(
+                          children: [
+                            Text(
+                              'Casos Abertos',
+                              style: TextStyle(fontSize: 18),
                             ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 16),
-                  if (!_isEditing)
-                    Text(
-                      _currentDescricao,
-                      style: TextStyle(fontSize: 16),
-                    )
-                  else
-                    TextFormField(
-                      controller: _descricaoController,
-                      decoration: InputDecoration(
-                        labelText: 'Descrição',
-                      ),
+                            SizedBox(height: 8),
+                            StreamBuilder<QuerySnapshot>(
+                              stream: _casesCollection
+                                  .where('userId', isEqualTo: user.uid)
+                                  .where('status', isEqualTo: 'aberto')
+                                  .snapshots(),
+                              builder: (context, snapshot) {
+                                if (snapshot.hasData) {
+                                  final openCases = snapshot.data!.docs;
+                                  final casosAbertosCount = openCases.length;
+                                  return Text(
+                                    casosAbertosCount.toString(),
+                                    style: TextStyle(
+                                      fontSize: 24,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  );
+                                } else {
+                                  return CircularProgressIndicator();
+                                }
+                              },
+                            ),
+                          ],
+                        ),
+                        Column(
+                          children: [
+                            Text(
+                              'Casos Concluídos',
+                              style: TextStyle(fontSize: 18),
+                            ),
+                            SizedBox(height: 8),
+                            Text(
+                              casosFechados.toString(),
+                              style: TextStyle(
+                                fontSize: 24,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
                     ),
-                  const SizedBox(height: 16),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      if (_isEditing)
-                        IconButton(
-                          onPressed: () {
-                            setState(() {
-                              _isEditing = false;
-                              _descricaoController.text = _currentDescricao;
-                            });
-                          },
-                          icon: Icon(Icons.cancel),
-                          color: Colors.red,
+                    const SizedBox(height: 16),
+                    if (!_isEditing)
+                      Text(
+                        _currentDescricao,
+                        style: TextStyle(fontSize: 16),
+                      )
+                    else
+                      TextFormField(
+                        controller: _descricaoController,
+                        decoration: InputDecoration(
+                          labelText: 'Descrição',
                         ),
-                      if (_isEditing)
-                        IconButton(
-                          onPressed: () {
-                            _updateProfileDescription(user.uid);
-                          },
-                          icon: Icon(Icons.save),
-                          color: Colors.green,
-                        ),
-                    ],
-                  ),
-                ],
-              );
-            } else if (snapshot.hasError) {
-              return Text('Erro ao carregar perfil');
-            } else {
-              return CircularProgressIndicator();
-            }
-          },
+                      ),
+                    const SizedBox(height: 16),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        if (_isEditing)
+                          IconButton(
+                            onPressed: () {
+                              setState(() {
+                                _isEditing = false;
+                                _descricaoController.text = _currentDescricao;
+                              });
+                            },
+                            icon: Icon(Icons.cancel),
+                            color: Colors.red,
+                          ),
+                        if (_isEditing)
+                          IconButton(
+                            onPressed: () {
+                              _updateProfileDescription(user.uid);
+                            },
+                            icon: Icon(Icons.save),
+                            color: Colors.green,
+                          ),
+                      ],
+                    ),
+                  ],
+                );
+              } else if (snapshot.hasError) {
+                return Text('Erro ao carregar perfil');
+              } else {
+                return CircularProgressIndicator();
+              }
+            },
+          ),
         ),
       ),
     );

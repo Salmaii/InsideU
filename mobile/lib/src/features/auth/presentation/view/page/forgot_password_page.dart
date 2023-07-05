@@ -1,10 +1,10 @@
-import 'package:InLaw/src/features/auth/presentation/viewmodel/forgot_password_viewmodel.dart';
 import 'package:InLaw/src/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:localization/localization.dart';
 import 'package:InLaw/src/common/form_text_field.dart';
+import 'package:InLaw/src/features/auth/presentation/viewmodel/forgot_password_viewmodel.dart';
 
 class ForgotPasswordPage extends StatefulWidget {
   const ForgotPasswordPage({Key? key}) : super(key: key);
@@ -72,11 +72,14 @@ class _ForgotPasswordPageState
         ),
       );
 
-  Widget get _errorMessage => Center(
-        child: Text(
-          store.error.forgot_password ?? '',
-          style: const TextStyle(
-            color: Colors.red,
+  Widget get _errorMessage => Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Center(
+          child: Text(
+            store.error.forgot_password ?? '',
+            style: const TextStyle(
+              color: Colors.red,
+            ),
           ),
         ),
       );
@@ -84,47 +87,64 @@ class _ForgotPasswordPageState
   Widget get _formBuild => Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.center,
-        mainAxisSize: MainAxisSize.max,
         children: [
           const SizedBox(height: 5),
-          _errorMessage,
           _email,
+          _errorMessage,
           _recoverPasswordButton,
           _backToLoginButton,
           _loadingIndicator,
         ],
       );
 
+  void _showSnackBar(String message) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text(message)),
+    );
+  }
+
+  void _dismissKeyboard(BuildContext context) {
+    final currentFocus = FocusScope.of(context);
+    if (!currentFocus.hasPrimaryFocus) {
+      currentFocus.unfocus();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     _theme = Theme.of(context);
-    return Scaffold(
-      key: _scaffoldKey,
-      appBar: AppBar(
-        backgroundColor: AppColors.primary,
-        centerTitle: true,
-        title: const Text('Password Recovery'),
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
-          onPressed: () {
-            Modular.to.pop();
-          },
+    return GestureDetector(
+      onTap: () {
+        _dismissKeyboard(context);
+      },
+      child: Scaffold(
+        key: _scaffoldKey,
+        appBar: AppBar(
+          backgroundColor: AppColors.primary,
+          centerTitle: true,
+          title: const Text('Password Recovery'),
+          leading: IconButton(
+            icon: const Icon(Icons.arrow_back),
+            onPressed: () {
+              Modular.to.pop();
+            },
+          ),
         ),
-      ),
-      body: Center(
-        child: SingleChildScrollView(
+        body: SingleChildScrollView(
           child: Container(
-            height: MediaQuery.of(context).size.height * 0.88,
-            decoration: const BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(40),
-                topRight: Radius.circular(40),
-              ),
+            width:
+                MediaQuery.of(context).size.width, // Definindo a largura máxima
+            padding: const EdgeInsets.symmetric(horizontal: 5),
+            color: Colors.white,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const SizedBox(height: 20),
+                Observer(builder: (_) {
+                  return Form(child: _formBuild);
+                }),
+              ],
             ),
-            child: Observer(builder: (_) {
-              return Form(child: _formBuild);
-            }),
           ),
         ),
       ),

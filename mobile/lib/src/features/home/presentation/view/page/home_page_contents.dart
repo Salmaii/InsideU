@@ -55,21 +55,21 @@ class HomePageContents extends StatelessWidget {
           height: 32,
         ),
       ),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(20),
-            child: Text(
-              'Categorias',
-              style: TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
+      body: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(20),
+              child: Text(
+                'Categorias',
+                style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
             ),
-          ),
-          Expanded(
-            child: FutureBuilder<QuerySnapshot>(
+            FutureBuilder<QuerySnapshot>(
               future: FirebaseFirestore.instance.collection('categories').get(),
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
@@ -86,8 +86,8 @@ class HomePageContents extends StatelessWidget {
                 return _buildCategoryList(context, categories);
               },
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

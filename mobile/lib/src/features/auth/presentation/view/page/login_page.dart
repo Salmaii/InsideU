@@ -1,5 +1,4 @@
 import 'package:InLaw/src/common/form_text_field.dart';
-import 'package:InLaw/src/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -24,8 +23,8 @@ class _LoginPageState extends ModularState<LoginPage, LoginViewModel> {
       );
 
   Widget get _logo => SizedBox(
-        height: 130,
-        width: 130,
+        height: 100,
+        width: 100,
         child: Image.asset('lib/assets/images/logoImage.png'),
       );
 
@@ -152,9 +151,9 @@ class _LoginPageState extends ModularState<LoginPage, LoginViewModel> {
           const SizedBox(height: 5),
           _email,
           _password,
+          _errorMessage,
           _loginButton,
           _forgotPasswordButton,
-          _errorMessage,
           _divider,
           _signUp,
           _loadingIndicator,
@@ -164,23 +163,34 @@ class _LoginPageState extends ModularState<LoginPage, LoginViewModel> {
   @override
   Widget build(BuildContext context) {
     _theme = Theme.of(context);
-    return Scaffold(
-      backgroundColor: AppColors.primary,
-      appBar: AppBar(centerTitle: true, title: const Text('InLaw')),
-      body: Center(
-        child: SingleChildScrollView(
+    return GestureDetector(
+      onTap: () {
+        final currentFocus = FocusScope.of(context);
+        if (!currentFocus.hasPrimaryFocus) {
+          currentFocus.unfocus();
+        }
+      },
+      child: Scaffold(
+        backgroundColor: Colors.white,
+        appBar: AppBar(
+          backgroundColor: Colors.white,
+          automaticallyImplyLeading: false,
+          centerTitle: true,
+          title: Image.asset(
+            'lib/assets/images/nameLogoNoBackground.png',
+            height: 32,
+          ),
+        ),
+        body: SingleChildScrollView(
           child: Container(
-            height: MediaQuery.of(context).size.height * 0.88,
-            decoration: const BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(40),
-                topRight: Radius.circular(40),
-              ),
+            constraints: BoxConstraints(
+              minHeight: MediaQuery.of(context).size.height,
             ),
-            child: Observer(builder: (_) {
-              return Form(child: _formBuild);
-            }),
+            child: Center(
+              child: Observer(builder: (_) {
+                return Form(child: _formBuild);
+              }),
+            ),
           ),
         ),
       ),

@@ -40,7 +40,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
   }
 
   void initialization() async {
-    WidgetsBinding.instance.addPostFrameCallback((_) {
+    WidgetsBinding.instance!.addPostFrameCallback((_) {
       FlutterNativeSplash.remove();
     });
   }
@@ -49,80 +49,90 @@ class _OnboardingPageState extends State<OnboardingPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: Column(
-          children: [
-            Expanded(
-              child: PageView.builder(
-                controller: _pageController,
-                itemCount: onboardingData.length,
-                onPageChanged: (int page) {
-                  setState(() {
-                    _currentPage = page;
-                  });
-                },
-                itemBuilder: (context, index) {
-                  return buildOnboardingPage(index);
-                },
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              Container(
+                height: MediaQuery.of(context).size.height * 0.8,
+                child: PageView.builder(
+                  controller: _pageController,
+                  itemCount: onboardingData.length,
+                  onPageChanged: (int page) {
+                    setState(() {
+                      _currentPage = page;
+                    });
+                  },
+                  itemBuilder: (context, index) {
+                    return buildOnboardingPage(index);
+                  },
+                ),
               ),
-            ),
-            SizedBox(height: 100.0),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                if (_currentPage == 0)
-                  ElevatedButton(
-                    onPressed: () {
-                      Modular.to.pushReplacementNamed('/login/');
-                    },
-                    child: Text(
-                      'Pular'.i18n(),
-                      style: TextStyle(fontSize: 18.0),
+              SizedBox(height: 20.0),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  if (_currentPage == 0)
+                    ElevatedButton(
+                      onPressed: () {
+                        Modular.to.pushReplacementNamed('/login/');
+                      },
+                      child: Text(
+                        'Pular'.i18n(),
+                        style: TextStyle(fontSize: 18.0),
+                      ),
                     ),
-                  ),
-                if (_currentPage != 0)
-                  ElevatedButton(
-                    onPressed: () {
-                      _pageController.previousPage(
-                        duration: Duration(milliseconds: 500),
-                        curve: Curves.ease,
-                      );
-                    },
-                    child: Text(
-                      'Voltar'.i18n(),
-                      style: TextStyle(fontSize: 18.0),
+                  if (_currentPage != 0)
+                    ElevatedButton(
+                      onPressed: () {
+                        _pageController.previousPage(
+                          duration: Duration(milliseconds: 500),
+                          curve: Curves.ease,
+                        );
+                      },
+                      child: Text(
+                        'Voltar'.i18n(),
+                        style: TextStyle(fontSize: 18.0),
+                      ),
                     ),
-                  ),
-                if (_currentPage != onboardingData.length - 1)
-                  ElevatedButton(
-                    onPressed: () {
-                      _pageController.nextPage(
-                        duration: Duration(milliseconds: 500),
-                        curve: Curves.ease,
-                      );
-                    },
-                    child: Text(
-                      'Próximo'.i18n(),
-                      style: TextStyle(fontSize: 18.0),
+                  if (_currentPage != onboardingData.length - 1)
+                    ElevatedButton(
+                      onPressed: () {
+                        _pageController.nextPage(
+                          duration: Duration(milliseconds: 500),
+                          curve: Curves.ease,
+                        );
+                      },
+                      child: Text(
+                        'Próximo'.i18n(),
+                        style: TextStyle(fontSize: 18.0),
+                      ),
                     ),
-                  ),
-                if (_currentPage == onboardingData.length - 1)
-                  ElevatedButton(
-                    onPressed: () {
-                      Modular.to.pushReplacementNamed('/login/');
-                    },
-                    child: Text(
-                      'Login'.i18n(),
-                      style: TextStyle(fontSize: 18.0),
+                  if (_currentPage == onboardingData.length - 1)
+                    ElevatedButton(
+                      onPressed: () {
+                        Modular.to.pushReplacementNamed('/login/');
+                      },
+                      child: Text(
+                        'Login'.i18n(),
+                        style: TextStyle(fontSize: 18.0),
+                      ),
                     ),
-                  ),
-              ],
-            ),
-            const SizedBox(height: 50.0),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: buildPageIndicator(),
-            ),
-          ],
+                ],
+              ),
+              const SizedBox(
+                  height:
+                      16.0), // Adiciona um espaçamento entre os botões e os indicadores de página
+              Container(
+                margin: EdgeInsets.only(
+                    bottom:
+                        16.0), // Define um espaçamento inferior para os indicadores
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: buildPageIndicator(),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -130,7 +140,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
 
   Widget buildOnboardingPage(int index) {
     return Padding(
-      padding: EdgeInsets.all(16.0),
+      padding: EdgeInsets.all(5.0),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -139,7 +149,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
             width: 150,
             height: 150,
           ),
-          SizedBox(height: 32.0),
+          // SizedBox(height: 32.0),
           Expanded(
             child: Container(
               alignment: Alignment.center,
@@ -151,7 +161,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
               ),
             ),
           ),
-          SizedBox(height: 48.0),
+          // SizedBox(height: 48.0),
           Text(
             onboardingData[index]['text'],
             textAlign: TextAlign.center,

@@ -1,4 +1,3 @@
-import 'package:InLaw/src/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:InLaw/src/common/form_text_field.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
@@ -16,6 +15,7 @@ class SignUpPage extends StatefulWidget {
 class _SignUpPageState extends ModularState<SignUpPage, SignUpViewModel> {
   late ThemeData _theme;
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+  final FocusScopeNode _focusScopeNode = FocusScopeNode();
 
   Widget get _loadingIndicator => Visibility(
         child: const LinearProgressIndicator(
@@ -97,7 +97,8 @@ class _SignUpPageState extends ModularState<SignUpPage, SignUpViewModel> {
         ),
       );
 
-  Widget get _errorMessage => Center(
+  Widget get _errorMessage => Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 30),
         child: Text(
           store.error.signUp ?? '',
           style: const TextStyle(
@@ -112,10 +113,10 @@ class _SignUpPageState extends ModularState<SignUpPage, SignUpViewModel> {
         mainAxisSize: MainAxisSize.max,
         children: [
           const SizedBox(height: 5),
-          _errorMessage,
           _name,
           _email,
           _password,
+          _errorMessage,
           _signUpButton,
           _backToLoginButton,
           _loadingIndicator,
@@ -126,6 +127,10 @@ class _SignUpPageState extends ModularState<SignUpPage, SignUpViewModel> {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(content: Text(message)),
     );
+  }
+
+  void _dismissKeyboard(BuildContext context) {
+    _focusScopeNode.unfocus();
   }
 
   @override
@@ -143,21 +148,29 @@ class _SignUpPageState extends ModularState<SignUpPage, SignUpViewModel> {
           },
         ),
       ),
-      backgroundColor: AppColors.primary,
-      body: Center(
-        child: SingleChildScrollView(
-          child: Container(
-            height: MediaQuery.of(context).size.height * 0.88,
-            decoration: const BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(40),
-                topRight: Radius.circular(40),
+      body: GestureDetector(
+        onTap: () {
+          _dismissKeyboard(context);
+        },
+        child: FocusScope(
+          node: _focusScopeNode,
+          child: Center(
+            child: SingleChildScrollView(
+              child: Container(
+                constraints: BoxConstraints(
+                  minHeight: MediaQuery.of(context).size.height -
+                      AppBar().preferredSize.height -
+                      MediaQuery.of(context).padding.top,
+                ),
+                color: Colors.white,
+                child: Observer(builder: (_) {
+                  return Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 5),
+                    child: Form(child: _formBuild),
+                  );
+                }),
               ),
             ),
-            child: Observer(builder: (_) {
-              return Form(child: _formBuild);
-            }),
           ),
         ),
       ),
