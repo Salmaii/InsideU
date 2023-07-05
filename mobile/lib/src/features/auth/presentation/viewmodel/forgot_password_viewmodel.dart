@@ -38,6 +38,7 @@ abstract class _ForgotPasswordViewModelBase with Store {
         _showCustomNotification(context, 'Email enviado com sucesso!');
       } catch (e) {
         print('Erro ao redefinir a senha: $e');
+        error.forgot_password = "Erro ao redefinir a senha";
         throw Exception('Erro ao redefinir a senha: $e');
       } finally {
         isLoading = false;

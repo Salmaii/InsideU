@@ -44,13 +44,13 @@ abstract class _LoginViewModelBase with Store {
         await _usecase.login(email, password);
         return true;
       } on UserNotFoundException catch (e) {
-        error.login = 'Username not found';
+        error.login = 'Usuário não encontrado';
         return false;
       } on InvalidCredentialsException catch (e) {
-        error.login = 'Invalid Credentials';
+        error.login = 'A senha está incorreta';
         return false;
       } on Exception catch (e) {
-        error.login = 'Something went wrong';
+        error.login = 'Algo de errado aconteceu';
         return false;
       } on UnimplementedError {
         error.login = 'Função não implementada!';
